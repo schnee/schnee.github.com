@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Schnee
-tagline: Supporting tagline
+tagline: Very little to do with snow
 ---
 {% include JB/setup %}
 
