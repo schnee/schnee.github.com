@@ -1,0 +1,85 @@
+2011-2012 SuperPAC Receipts By State
+========================================================
+
+A colleague exposed me to the [R](http://cran.r-project.org) enviroment. It smoted me and I looked for non-work datasets. I found [The Sunlight Foundation](http://sunlightfoundation.com/) and started digging through their data, and I found their reports on [Super PAC spending](http://reporting.sunlightfoundation.com/outside-spending-2012/super-pacs/). I downloaded the [Super PAC Summary](http://reporting.sunlightfoundation.com/outside-spending-2012/file-downloads/) data and broke out R.
+
+I wanted to break out the Independent Expenditures by State, and map them. I read in the data and tidied it up a bit.
+
+```{r}
+suppressPackageStartupMessages(require(mapproj))
+suppressPackageStartupMessages(require(ggplot2))
+suppressPackageStartupMessages(require(grid))
+suppressPackageStartupMessages(library(maps))
+suppressPackageStartupMessages(require(plyr))
+
+pac <- read.csv("./committee_summary.csv", header=TRUE)
+
+names(pac)[12] <- "receipts"
+str(pac)
+```
+PAC is a data frame with many columns. For this purpose, I'm interested in the receipts and the state identifiers.
+
+I needed to summarize the receipts and ensure that the states matched the codes from the states_map object. And then I had to override the "district of columbia". At that point, I could plot out a quick view. 
+```{r}
+pdata <- ddply(pac, "state", summarize, Sum = sum(receipts, na.rm=TRUE))
+
+states_map <- map_data("state")
+
+pdata$statelc <- tolower(state.name[match(pdata$state, state.abb)])
+
+pdata$statelc[9] <- "district of columbia"
+
+ggplot(data=pdata, aes(x=state, y=Sum)) + 
+  geom_bar(width=1, stat="identity") + 
+  theme(legend.position="none") + 
+  labs(x="State", y="Receipts") + 
+  ggtitle("SuperPAC Receipts by State Comparison")
+```
+Unsuprisingly, most SuperPAC money flows to PACs headquartered in Washington, DC. So much money that DC will dominate subsequent plots; I decided to get rid of DC.
+
+```{r}
+pdata.noDC = subset(pdata, state!="DC")
+
+ggplot(pdata.noDC, aes(x=state, y=Sum)) + 
+  geom_bar(width=1, stat="identity") + 
+  theme(legend.position="none") + labs(x="State", y="Receipts") + 
+  ggtitle("SuperPAC Receipts by State Comparison\nDC omitted")
+```
+
+Much better.
+
+A quick coloring of the states with a gradient showed
+
+```{r}
+ggplot(pdata.noDC, aes(map_id = statelc, fill=Sum)) + 
+  geom_map(map=states_map) + 
+  expand_limits(x=states_map$long, y=states_map$lat)+
+  coord_map("polyconic")
+```
+
+that the gradient treatment doesn't really help distinguish between different levels: is Washington more or less than Oregon? But note that Nebraska isn't participating in Super PAC spending at all.
+
+Quantization provided a better view.
+
+```{r}
+qs = quantile(pdata.noDC$Sum, c(0.0, 0.2, 0.4, 0.6, 0.8, 1.0))
+qsf = sprintf("$%.2f", qs)
+qlabels = paste(head(qsf, -1), tail(qsf, -1), sep=' - ')
+
+pdata.noDC$Sum_q <- cut(pdata.noDC$Sum, qs, labels=qlabels, include.lowest=TRUE)
+
+pal <- colorRampPalette(c("grey80", "darkgreen"))(5)
+
+clean_theme <- theme(axis.title = element_blank(), axis.text=element_blank(), panel.background=element_blank(), panel.grid=element_blank(), axis.ticks.length = unit(0, "cm"), complete=TRUE)
+
+ggplot(pdata.noDC, aes(map_id = statelc, fill=Sum_q))+ geom_map(map=states_map, colour="black") + 
+  scale_fill_manual(values=pal) + 
+  expand_limits(x=states_map$long, y=states_map$lat)+
+  coord_map("polyconic") + 
+  labs(fill="Receipts", x="Longitude", y="Latitude") + 
+  ggtitle("SuperPAC Receipts by State\nof Registration\nDC Omitted") + 
+  clean_theme
+```
+Now, we can see that Super PACs in Oregon take in fewer receipts than those in Washington.
+
+This was a quick way to take state-coded data and present it graphically. I would have been "done", except that I noticed that the data has columns such as "IEs.support.dems" and "IEs.support.reps". Sunlight [tells](http://reporting.sunlightfoundation.com/super-pac/data/about/2012-june-update/) me that this spending is either positive (support) or negative (oppose). Doing something with that information seemed interesting, and is covered in the next post.

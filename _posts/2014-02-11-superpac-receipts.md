@@ -65,7 +65,7 @@ ggplot(data = pdata, aes(x = state, y = Sum)) + geom_bar(width = 1, stat = "iden
     theme(legend.position = "none") + labs(x = "State", y = "Receipts") + ggtitle("SuperPAC Receipts by State Comparison")
 {% endhighlight %}
 
-![center](/figs/superpac-receipts/unnamed-chunk-2.png) 
+![center](http://schnee.github.com/figs/2014-02-11-superpac-receipts/unnamed-chunk-2.png) 
 
 Unsuprisingly, most SuperPAC money flows to PACs headquartered in Washington, DC. So much money that DC will dominate subsequent plots; I decided to get rid of DC.
 
@@ -77,7 +77,7 @@ ggplot(pdata.noDC, aes(x = state, y = Sum)) + geom_bar(width = 1, stat = "identi
     theme(legend.position = "none") + labs(x = "State", y = "Receipts") + ggtitle("SuperPAC Receipts by State Comparison\nDC omitted")
 {% endhighlight %}
 
-![center](/figs/superpac-receipts/unnamed-chunk-3.png) 
+![center](http://schnee.github.com/figs/2014-02-11-superpac-receipts/unnamed-chunk-3.png) 
 
 
 Much better.
@@ -90,7 +90,7 @@ ggplot(pdata.noDC, aes(map_id = statelc, fill = Sum)) + geom_map(map = states_ma
     expand_limits(x = states_map$long, y = states_map$lat) + coord_map("polyconic")
 {% endhighlight %}
 
-![center](/figs/superpac-receipts/unnamed-chunk-4.png) 
+![center](http://schnee.github.com/figs/2014-02-11-superpac-receipts/unnamed-chunk-4.png) 
 
 
 that the gradient treatment doesn't really help distinguish between different levels: is Washington more or less than Oregon? But note that Nebraska isn't participating in Super PAC spending at all.
@@ -118,7 +118,7 @@ ggplot(pdata.noDC, aes(map_id = statelc, fill = Sum_q)) + geom_map(map = states_
     clean_theme
 {% endhighlight %}
 
-![center](/figs/superpac-receipts/unnamed-chunk-5.png) 
+![center](http://schnee.github.com/figs/2014-02-11-superpac-receipts/unnamed-chunk-5.png) 
 
 Now, we can see that Super PACs in Oregon take in fewer receipts than those in Washington.
 
