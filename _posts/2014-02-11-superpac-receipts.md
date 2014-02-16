@@ -1,6 +1,7 @@
 ---
 layout: post
 title: SuperPAC Receipts by State
+tags: [R, politics]
 ---
 
 A colleague exposed me to the [R](http://cran.r-project.org) enviroment. It smoted me and I looked for non-work datasets. I found [The Sunlight Foundation](http://sunlightfoundation.com/) and started digging through their data, and I found their reports on [Super PAC spending](http://reporting.sunlightfoundation.com/outside-spending-2012/super-pacs/). I downloaded the [Super PAC Summary](http://reporting.sunlightfoundation.com/outside-spending-2012/file-downloads/) data and broke out R.
