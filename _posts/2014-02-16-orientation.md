@@ -3,7 +3,7 @@ layout: post
 title: SuperPAC Spending Orientation by State
 ---
 
-A [prior entry](http:///2014/02/11/superpac-receipts/) looked at Super PAC receipts for the 2011-2012 election cycle and showed a bit of R code. Here, we use the [same data](http://reporting.sunlightfoundation.com/outside-spending-2012/file-downloads/) and break it down by supporting and opposing spending by state.
+A [prior entry](/2014/02/11/superpac-receipts/) looked at Super PAC receipts for the 2011-2012 election cycle and showed a bit of R code. Here, we use the [same data](http://reporting.sunlightfoundation.com/outside-spending-2012/file-downloads/) and break it down by supporting and opposing spending by state.
 
 *Technical note: I took this opportunity to start exploring the [dplyr](http://cran.r-project.org/web/packages/dplyr/index.html) R package. I think I like it.*
 
