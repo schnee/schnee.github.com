@@ -19,11 +19,12 @@ sample$interval=factor(findInterval(sample$obs, vec=the.breaks, all.inside=TRUE)
                        labels=the.breaks,levels=c(1:length(the.breaks)))
 
 pal = rev(brewer.pal(11, "RdBu"))
-                       
-ggplot(sample, aes(x,y,colour=interval))+
-  geom_point(size=10) +
-  scale_colour_manual(values=pal, limits=the.breaks, labels=the.breaks)+
-  guides(colour = guide_legend(override.aes = list(size=3, shape=19)))
+
+p = ggplot(sample, aes(x,y,colour=interval))
+p = p +  geom_point(size=10)
+p = p + scale_colour_manual(values=pal, limits=the.breaks, labels=the.breaks)
+p = p + guides(colour = guide_legend(override.aes = list(size=3, shape=19)))
+p
 ```
 
 
