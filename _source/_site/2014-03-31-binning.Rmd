@@ -1,9 +1,3 @@
----
-layout: post
-title: Binning Continuous Data
-tags: [R]
----
-
 Recently, I had a continuous variable that I wanted to plot and use color to show the gradient. The variable's values were too fine for color to reveal closely spaced data. So I wanted to quantize the variable into defined bands. 
 
 The data's values were outside the (absolute) maximum of the band; I wanted to bucket anything that exceeded the band into the maximum bands. In the future, I'll change the labels of the interval factor to indicate this.
