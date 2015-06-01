@@ -1,0 +1,198 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Binning Continuous Data</title>
+    
+    <meta name="author" content="Brent Schneeman">
+
+    <!-- Enable responsive viewport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+    <link href="/assets/themes/twitter/bootstrap/css/bootstrap.2.2.2.min.css" rel="stylesheet">
+    <link href="/assets/themes/twitter/css/style.css?body=1" rel="stylesheet" type="text/css" media="all">
+
+    <!-- Le fav and touch icons -->
+  <!-- Update these with your own images
+    <link rel="shortcut icon" href="images/favicon.ico">
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+  -->
+
+    <!-- atom & rss feed -->
+    <link href="/atom.xml" type="application/atom+xml" rel="alternate" title="Sitewide ATOM Feed">
+    <link href="/rss.xml" type="application/rss+xml" rel="alternate" title="Sitewide RSS Feed">
+
+  </head>
+
+  <body>
+    <div class="navbar">
+      <div class="navbar-inner">
+        <div class="container-narrow">
+          <a class="brand" href="/">schnee</a>
+          <ul class="nav">
+            
+            
+            
+
+
+  
+    
+      
+      	
+      	<li><a href="/archive.html">Archive</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/categories.html">Categories</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/pages.html">Pages</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/tags.html">Tags</a></li>
+      	
+      
+    
+  
+
+
+
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="container-narrow">
+
+      <div class="content">
+        
+<div class="page-header">
+  <h1>Binning Continuous Data </h1>
+</div>
+
+<div class="row-fluid post-full">
+  <div class="span12">
+    <div class="date">
+      <span>31 March 2014</span>
+    </div>
+    <div class="content">
+      <p>Recently, I had a continuous variable that I wanted to plot and use color to show the gradient. The variable’s values were too fine for color to reveal closely spaced data. So I wanted to quantize the variable into defined bands.</p>
+
+<p>The data’s values were outside the (absolute) maximum of the band; I wanted to bucket anything that exceeded the band into the maximum bands. In the future, I’ll change the labels of the interval factor to indicate this.</p>
+
+<div class="highlight"><pre><code class="language-r" data-lang="r"><span class="kn">require</span><span class="p">(</span>ggplot2<span class="p">)</span>
+<span class="kn">require</span><span class="p">(</span>RColorBrewer<span class="p">)</span>
+<span class="kp">set.seed</span><span class="p">(</span><span class="m">1492</span><span class="p">)</span>  <span class="c1">#discovery!</span>
+sample <span class="o">=</span> <span class="kt">data.frame</span><span class="p">(</span>x <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="m">1</span><span class="o">:</span><span class="m">20</span><span class="p">),</span> y <span class="o">=</span> <span class="m">1</span><span class="p">,</span> obs <span class="o">=</span> runif<span class="p">(</span><span class="m">20</span><span class="p">,</span> <span class="m">-150</span><span class="p">,</span> <span class="m">150</span><span class="p">))</span>
+the.breaks <span class="o">=</span> <span class="kp">seq</span><span class="p">(</span><span class="m">-100</span><span class="p">,</span> <span class="m">100</span><span class="p">,</span> by <span class="o">=</span> <span class="m">20</span><span class="p">)</span>
+
+<span class="kp">sample</span><span class="o">$</span>interval <span class="o">=</span> <span class="kp">factor</span><span class="p">(</span><span class="kp">findInterval</span><span class="p">(</span><span class="kp">sample</span><span class="o">$</span>obs<span class="p">,</span> vec <span class="o">=</span> the.breaks<span class="p">,</span> all.inside <span class="o">=</span> <span class="kc">TRUE</span><span class="p">),</span> 
+    labels <span class="o">=</span> the.breaks<span class="p">,</span> levels <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="m">1</span><span class="o">:</span><span class="kp">length</span><span class="p">(</span>the.breaks<span class="p">)))</span>
+
+pal <span class="o">=</span> <span class="kp">rev</span><span class="p">(</span>brewer.pal<span class="p">(</span><span class="m">11</span><span class="p">,</span> <span class="s">&quot;RdBu&quot;</span><span class="p">))</span>
+
+p <span class="o">=</span> ggplot<span class="p">(</span><span class="kp">sample</span><span class="p">,</span> aes<span class="p">(</span>x<span class="p">,</span> y<span class="p">,</span> colour <span class="o">=</span> interval<span class="p">))</span>
+p <span class="o">=</span> p <span class="o">+</span> geom_point<span class="p">(</span>size <span class="o">=</span> <span class="m">10</span><span class="p">)</span>
+p <span class="o">=</span> p <span class="o">+</span> scale_colour_manual<span class="p">(</span>values <span class="o">=</span> pal<span class="p">,</span> limits <span class="o">=</span> the.breaks<span class="p">,</span> labels <span class="o">=</span> the.breaks<span class="p">)</span>
+p <span class="o">=</span> p <span class="o">+</span> guides<span class="p">(</span>colour <span class="o">=</span> guide_legend<span class="p">(</span>override.aes <span class="o">=</span> <span class="kt">list</span><span class="p">(</span>size <span class="o">=</span> <span class="m">3</span><span class="p">,</span> shape <span class="o">=</span> <span class="m">19</span><span class="p">)))</span>
+p</code></pre></div>
+
+<p><img src="http://schnee.github.com/figs/2014-03-31-binning/unnamed-chunk-1.png" alt="center" /></p>
+
+
+    </div>
+
+    
+
+  
+    <ul class="tag_box inline">
+      <li><i class="icon-tags"></i></li>
+      
+      
+
+
+  
+     
+    	<li><a href="/tags.html#R-ref">R <span>3</span></a></li>
+    
+  
+
+
+
+    </ul>
+    
+
+    <hr>
+    <div class="pagination">
+      <ul>
+      
+        <li class="prev"><a href="/2014/02/16/orientation" title="SuperPAC Spending Orientation by State">&larr; Previous</a></li>
+      
+        <li><a href="/archive.html">Archive</a></li>
+      
+        <li class="next"><a href="/2015/06/01/octopressing" title="Octopressing">Next &rarr;</a></li>
+      
+      </ul>
+    </div>
+    <hr>
+    
+  </div>
+</div>
+
+
+      </div>
+      <hr>
+      <footer>
+        <p>&copy; 2015 <a href="http://twitter.com/schnee">Brent Schneeman</a>
+        </p>
+      </footer>
+
+    </div>
+
+    
+  </body>
+</html>
+

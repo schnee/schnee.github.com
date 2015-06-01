@@ -1,8 +1,15 @@
----
-# Remember to set production_url in your _config.yml file!
-title : Sitemap
----
-{% for page in site.pages %}
-{{site.production_url}}{{ page.url }}{% endfor %}
-{% for post in site.posts %}
-{{site.production_url}}{{ post.url }}{% endfor %}
+
+http://schnee.github.io/archive.html
+http://schnee.github.io/atom.xml
+http://schnee.github.io/categories.html
+http://schnee.github.io/index.html
+http://schnee.github.io/pages.html
+http://schnee.github.io/r.atom.xml
+http://schnee.github.io/rss.xml
+http://schnee.github.io/sitemap.txt
+http://schnee.github.io/tags.html
+
+http://schnee.github.io/2015/06/01/octopressing
+http://schnee.github.io/2014/03/31/binning
+http://schnee.github.io/2014/02/16/orientation
+http://schnee.github.io/2014/02/11/superpac-receipts

@@ -1,0 +1,248 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>SuperPAC Spending Orientation by State</title>
+    
+    <meta name="author" content="Brent Schneeman">
+
+    <!-- Enable responsive viewport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+    <link href="/assets/themes/twitter/bootstrap/css/bootstrap.2.2.2.min.css" rel="stylesheet">
+    <link href="/assets/themes/twitter/css/style.css?body=1" rel="stylesheet" type="text/css" media="all">
+
+    <!-- Le fav and touch icons -->
+  <!-- Update these with your own images
+    <link rel="shortcut icon" href="images/favicon.ico">
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+  -->
+
+    <!-- atom & rss feed -->
+    <link href="/atom.xml" type="application/atom+xml" rel="alternate" title="Sitewide ATOM Feed">
+    <link href="/rss.xml" type="application/rss+xml" rel="alternate" title="Sitewide RSS Feed">
+
+  </head>
+
+  <body>
+    <div class="navbar">
+      <div class="navbar-inner">
+        <div class="container-narrow">
+          <a class="brand" href="/">schnee</a>
+          <ul class="nav">
+            
+            
+            
+
+
+  
+    
+      
+      	
+      	<li><a href="/archive.html">Archive</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/categories.html">Categories</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/pages.html">Pages</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/tags.html">Tags</a></li>
+      	
+      
+    
+  
+
+
+
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="container-narrow">
+
+      <div class="content">
+        
+<div class="page-header">
+  <h1>SuperPAC Spending Orientation by State </h1>
+</div>
+
+<div class="row-fluid post-full">
+  <div class="span12">
+    <div class="date">
+      <span>16 February 2014</span>
+    </div>
+    <div class="content">
+      <p>A <a href="/2014/02/11/superpac-receipts/">prior entry</a> looked at Super PAC receipts for the 2011-2012 election cycle and showed a bit of R code. Here, we use the <a href="http://reporting.sunlightfoundation.com/outside-spending-2012/file-downloads/">same data</a> and break it down by supporting and opposing spending by state.</p>
+
+<p><em>Technical note: I took this opportunity to start exploring the <a href="http://cran.r-project.org/web/packages/dplyr/index.html">dplyr</a> R package. I think I like it.</em></p>
+
+<div class="highlight"><pre><code class="language-r" data-lang="r"><span class="kp">suppressPackageStartupMessages</span><span class="p">(</span><span class="kn">require</span><span class="p">(</span>ggplot2<span class="p">))</span>
+<span class="kp">suppressPackageStartupMessages</span><span class="p">(</span><span class="kn">require</span><span class="p">(</span>dplyr<span class="p">))</span>
+<span class="kp">suppressPackageStartupMessages</span><span class="p">(</span><span class="kn">require</span><span class="p">(</span>maps<span class="p">))</span>
+<span class="kp">suppressPackageStartupMessages</span><span class="p">(</span><span class="kn">require</span><span class="p">(</span>grid<span class="p">))</span>
+<span class="kp">suppressPackageStartupMessages</span><span class="p">(</span><span class="kn">require</span><span class="p">(</span>mapproj<span class="p">))</span>
+<span class="kp">suppressPackageStartupMessages</span><span class="p">(</span><span class="kn">require</span><span class="p">(</span>scales<span class="p">))</span>
+
+pac <span class="o">&lt;-</span> read.csv<span class="p">(</span><span class="s">&quot;./committee_summary.csv&quot;</span><span class="p">,</span> header <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>
+
+superpac.spend <span class="o">=</span> pac <span class="o">%.%</span> group_by<span class="p">(</span>state<span class="p">)</span> <span class="o">%.%</span> summarise<span class="p">(</span>or <span class="o">=</span> <span class="kp">sum</span><span class="p">(</span>IEs.oppose.reps<span class="p">),</span> 
+    od <span class="o">=</span> <span class="kp">sum</span><span class="p">(</span>IEs.oppose.dems<span class="p">),</span> sr <span class="o">=</span> <span class="kp">sum</span><span class="p">(</span>IEs.support.reps<span class="p">),</span> sd <span class="o">=</span> <span class="kp">sum</span><span class="p">(</span>IEs.support.dems<span class="p">))</span> <span class="o">%.%</span> 
+    arrange<span class="p">(</span>state<span class="p">)</span>
+
+states_map <span class="o">&lt;-</span> map_data<span class="p">(</span><span class="s">&quot;state&quot;</span><span class="p">)</span>
+
+superpac.spend<span class="o">$</span>statelc <span class="o">&lt;-</span> <span class="kp">tolower</span><span class="p">(</span>state.name<span class="p">[</span><span class="kp">match</span><span class="p">(</span>superpac.spend<span class="o">$</span>state<span class="p">,</span> state.abb<span class="p">)])</span>
+
+superpac.spend<span class="o">$</span>statelc<span class="p">[</span><span class="m">9</span><span class="p">]</span> <span class="o">&lt;-</span> <span class="s">&quot;district of columbia&quot;</span>
+
+superpac.spend<span class="o">$</span>support <span class="o">&lt;-</span> <span class="p">(</span>superpac.spend<span class="o">$</span>sr <span class="o">-</span> superpac.spend<span class="o">$</span>sd<span class="p">)</span><span class="o">/</span><span class="p">(</span>superpac.spend<span class="o">$</span>sd <span class="o">+</span> 
+    superpac.spend<span class="o">$</span>sr<span class="p">)</span>
+superpac.spend<span class="o">$</span>oppose <span class="o">&lt;-</span> <span class="p">(</span>superpac.spend<span class="o">$</span>or <span class="o">-</span> superpac.spend<span class="o">$</span>od<span class="p">)</span><span class="o">/</span><span class="p">(</span>superpac.spend<span class="o">$</span>od <span class="o">+</span> 
+    superpac.spend<span class="o">$</span>or<span class="p">)</span></code></pre></div>
+
+<p>At this point, superpac.spend is a nice little table</p>
+
+<div class="highlight"><pre><code class="language-r" data-lang="r"><span class="kp">suppressMessages</span><span class="p">(</span><span class="kp">head</span><span class="p">(</span>tbl_dt<span class="p">(</span>superpac.spend<span class="p">)))</span></code></pre></div>
+
+<div class="highlight"><pre><code class="language-text" data-lang="text">##   state      or      od      sr      sd    statelc support  oppose
+## 1             0       0       0       0       &lt;NA&gt;     NaN     NaN
+## 2    AK       0       0       0       0     alaska     NaN     NaN
+## 3    AL       0       0       0       0    alabama     NaN     NaN
+## 4    AR       0       0       0       0   arkansas     NaN     NaN
+## 5    AZ       0  182040  301577       0    arizona 1.00000 -1.0000
+## 6    CA 2569098 2022101 3164335 2792334 california 0.06245  0.1191</code></pre></div>
+
+<p>“Support” measures the fraction (from -1 to 1) of spending in support of a political orientation. Full Republican support is “1”; full Democratic support is “-1”. Likewise, “oppose” is the fraction of spending is opposition to a political orientation. Complete Republican opposition is “1”; complete Democratic opposition is “-1”. In the above table, you can see that Super PACs registered in Arizona completely supported Republican causes and completely opposed Democratic ones.</p>
+
+<p>We went to all the trouble of getting the state names (statelc). Let’s use it to plot:</p>
+
+<div class="highlight"><pre><code class="language-r" data-lang="r">clean_theme <span class="o">&lt;-</span> theme<span class="p">(</span>axis.title <span class="o">=</span> element_blank<span class="p">(),</span> axis.text <span class="o">=</span> element_blank<span class="p">(),</span> 
+    panel.background <span class="o">=</span> element_blank<span class="p">(),</span> panel.grid <span class="o">=</span> element_blank<span class="p">(),</span> axis.ticks.length <span class="o">=</span> unit<span class="p">(</span><span class="m">0</span><span class="p">,</span> 
+        <span class="s">&quot;cm&quot;</span><span class="p">),</span> complete <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>
+
+ggplot<span class="p">(</span>superpac.spend<span class="p">,</span> aes<span class="p">(</span>map_id <span class="o">=</span> statelc<span class="p">,</span> fill <span class="o">=</span> support<span class="p">))</span> <span class="o">+</span> geom_map<span class="p">(</span>map <span class="o">=</span> states_map<span class="p">)</span> <span class="o">+</span> 
+    expand_limits<span class="p">(</span>x <span class="o">=</span> states_map<span class="o">$</span>long<span class="p">,</span> y <span class="o">=</span> states_map<span class="o">$</span>lat<span class="p">)</span> <span class="o">+</span> coord_map<span class="p">(</span><span class="s">&quot;polyconic&quot;</span><span class="p">)</span> <span class="o">+</span> 
+    scale_fill_gradient2<span class="p">(</span>high <span class="o">=</span> muted<span class="p">(</span><span class="s">&quot;red&quot;</span><span class="p">),</span> low <span class="o">=</span> muted<span class="p">(</span><span class="s">&quot;blue&quot;</span><span class="p">),</span> mid <span class="o">=</span> <span class="s">&quot;white&quot;</span><span class="p">,</span> 
+        labels <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="s">&quot;Democratic&quot;</span><span class="p">,</span> <span class="s">&quot;Mostly Democratic&quot;</span><span class="p">,</span> <span class="s">&quot;Even&quot;</span><span class="p">,</span> <span class="s">&quot;Mostly Republican&quot;</span><span class="p">,</span> 
+            <span class="s">&quot;Republican&quot;</span><span class="p">))</span> <span class="o">+</span> labs<span class="p">(</span>fill <span class="o">=</span> <span class="s">&quot;Supporting\nOrientation&quot;</span><span class="p">)</span> <span class="o">+</span> ggtitle<span class="p">(</span><span class="s">&quot;Statewise Spending Orientation\n2011-2012 Election Cycle\n[Supporting]&quot;</span><span class="p">)</span> <span class="o">+</span> 
+    clean_theme</code></pre></div>
+
+<p><img src="http://schnee.github.com/figs/2014-02-16-orientation/unnamed-chunk-3.png" alt="center" /></p>
+
+<p>and</p>
+
+<div class="highlight"><pre><code class="language-r" data-lang="r">ggplot<span class="p">(</span>superpac.spend<span class="p">,</span> aes<span class="p">(</span>map_id <span class="o">=</span> statelc<span class="p">,</span> fill <span class="o">=</span> oppose<span class="p">))</span> <span class="o">+</span> geom_map<span class="p">(</span>map <span class="o">=</span> states_map<span class="p">)</span> <span class="o">+</span> 
+    expand_limits<span class="p">(</span>x <span class="o">=</span> states_map<span class="o">$</span>long<span class="p">,</span> y <span class="o">=</span> states_map<span class="o">$</span>lat<span class="p">)</span> <span class="o">+</span> coord_map<span class="p">(</span><span class="s">&quot;polyconic&quot;</span><span class="p">)</span> <span class="o">+</span> 
+    scale_fill_gradient2<span class="p">(</span>high <span class="o">=</span> muted<span class="p">(</span><span class="s">&quot;red&quot;</span><span class="p">),</span> low <span class="o">=</span> muted<span class="p">(</span><span class="s">&quot;blue&quot;</span><span class="p">),</span> mid <span class="o">=</span> <span class="s">&quot;white&quot;</span><span class="p">,</span> 
+        labels <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="s">&quot;Democratic&quot;</span><span class="p">,</span> <span class="s">&quot;Mostly Democratic&quot;</span><span class="p">,</span> <span class="s">&quot;Even&quot;</span><span class="p">,</span> <span class="s">&quot;Mostly Republican&quot;</span><span class="p">,</span> 
+            <span class="s">&quot;Republican&quot;</span><span class="p">))</span> <span class="o">+</span> labs<span class="p">(</span>fill <span class="o">=</span> <span class="s">&quot;Opposing\nOrientation&quot;</span><span class="p">)</span> <span class="o">+</span> ggtitle<span class="p">(</span><span class="s">&quot;Statewise Spending Orientation\n2011-2012 Election Cycle\n[Opposing]&quot;</span><span class="p">)</span> <span class="o">+</span> 
+    clean_theme</code></pre></div>
+
+<p><img src="http://schnee.github.com/figs/2014-02-16-orientation/unnamed-chunk-4.png" alt="center" /></p>
+
+<p>Examining the graphs, the battleground state of Ohio spent on both supporting Republican causes and opposing democratic causes. As did Arizona and Florida (and others). Texas had a large spend supporting Republicans and an even larger spend opposing Republicans. Montana was neutral on supporting, but very strong on opposing Democratic causes and people. I’m told that it was a pretty nasty area for negative campaigning, and <a href="http://www.pbs.org/wgbh/pages/frontline/big-sky-big-money/">PBS</a> even did a documentary on it.</p>
+
+<p>Fun analysis, and maybe something that can be spun into the Sunlight Foundations <a href="http://sunlightfoundation.com/blog/2014/02/06/codeacross-is-here/">CodeAcross</a> effort.</p>
+
+    </div>
+
+    
+
+  
+    <ul class="tag_box inline">
+      <li><i class="icon-tags"></i></li>
+      
+      
+
+
+  
+     
+    	<li><a href="/tags.html#R-ref">R <span>3</span></a></li>
+     
+    	<li><a href="/tags.html#politics-ref">politics <span>2</span></a></li>
+    
+  
+
+
+
+    </ul>
+    
+
+    <hr>
+    <div class="pagination">
+      <ul>
+      
+        <li class="prev"><a href="/2014/02/11/superpac-receipts" title="SuperPAC Receipts by State">&larr; Previous</a></li>
+      
+        <li><a href="/archive.html">Archive</a></li>
+      
+        <li class="next"><a href="/2014/03/31/binning" title="Binning Continuous Data">Next &rarr;</a></li>
+      
+      </ul>
+    </div>
+    <hr>
+    
+  </div>
+</div>
+
+
+      </div>
+      <hr>
+      <footer>
+        <p>&copy; 2015 <a href="http://twitter.com/schnee">Brent Schneeman</a>
+        </p>
+      </footer>
+
+    </div>
+
+    
+  </body>
+</html>
+

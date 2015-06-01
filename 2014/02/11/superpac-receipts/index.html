@@ -1,0 +1,276 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>SuperPAC Receipts by State</title>
+    
+    <meta name="author" content="Brent Schneeman">
+
+    <!-- Enable responsive viewport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+    <link href="/assets/themes/twitter/bootstrap/css/bootstrap.2.2.2.min.css" rel="stylesheet">
+    <link href="/assets/themes/twitter/css/style.css?body=1" rel="stylesheet" type="text/css" media="all">
+
+    <!-- Le fav and touch icons -->
+  <!-- Update these with your own images
+    <link rel="shortcut icon" href="images/favicon.ico">
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+  -->
+
+    <!-- atom & rss feed -->
+    <link href="/atom.xml" type="application/atom+xml" rel="alternate" title="Sitewide ATOM Feed">
+    <link href="/rss.xml" type="application/rss+xml" rel="alternate" title="Sitewide RSS Feed">
+
+  </head>
+
+  <body>
+    <div class="navbar">
+      <div class="navbar-inner">
+        <div class="container-narrow">
+          <a class="brand" href="/">schnee</a>
+          <ul class="nav">
+            
+            
+            
+
+
+  
+    
+      
+      	
+      	<li><a href="/archive.html">Archive</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/categories.html">Categories</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/pages.html">Pages</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/tags.html">Tags</a></li>
+      	
+      
+    
+  
+
+
+
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="container-narrow">
+
+      <div class="content">
+        
+<div class="page-header">
+  <h1>SuperPAC Receipts by State </h1>
+</div>
+
+<div class="row-fluid post-full">
+  <div class="span12">
+    <div class="date">
+      <span>11 February 2014</span>
+    </div>
+    <div class="content">
+      <p>A colleague exposed me to the <a href="http://cran.r-project.org">R</a> enviroment. It smoted me and I looked for non-work datasets. I found <a href="http://sunlightfoundation.com/">The Sunlight Foundation</a> and started digging through their data, and I found their reports on <a href="http://reporting.sunlightfoundation.com/outside-spending-2012/super-pacs/">Super PAC spending</a>. I downloaded the <a href="http://reporting.sunlightfoundation.com/outside-spending-2012/file-downloads/">Super PAC Summary</a> data and broke out R.</p>
+
+<p>I wanted to break out the Independent Expenditures by State, and map them. I read in the data and tidied it up a bit.</p>
+
+<div class="highlight"><pre><code class="language-r" data-lang="r"><span class="kp">suppressPackageStartupMessages</span><span class="p">(</span><span class="kn">require</span><span class="p">(</span>mapproj<span class="p">))</span>
+<span class="kp">suppressPackageStartupMessages</span><span class="p">(</span><span class="kn">require</span><span class="p">(</span>ggplot2<span class="p">))</span>
+<span class="kp">suppressPackageStartupMessages</span><span class="p">(</span><span class="kn">require</span><span class="p">(</span>grid<span class="p">))</span>
+<span class="kp">suppressPackageStartupMessages</span><span class="p">(</span><span class="kn">library</span><span class="p">(</span>maps<span class="p">))</span>
+<span class="kp">suppressPackageStartupMessages</span><span class="p">(</span><span class="kn">require</span><span class="p">(</span>plyr<span class="p">))</span>
+
+pac <span class="o">&lt;-</span> read.csv<span class="p">(</span><span class="s">&quot;./committee_summary.csv&quot;</span><span class="p">,</span> header <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>
+
+<span class="kp">names</span><span class="p">(</span>pac<span class="p">)[</span><span class="m">12</span><span class="p">]</span> <span class="o">&lt;-</span> <span class="s">&quot;receipts&quot;</span>
+str<span class="p">(</span>pac<span class="p">)</span></code></pre></div>
+
+<div class="highlight"><pre><code class="language-text" data-lang="text">## &#39;data.frame&#39;:	1027 obs. of  20 variables:
+##  $ Name                          : Factor w/ 1025 levels &quot;1911 UNITED&quot;,..: 782 56 681 525 428 380 997 210 815 334 ...
+##  $ Committee.ID                  : Factor w/ 1027 levels &quot;C00235929&quot;,&quot;C00363390&quot;,..: 62 30 100 23 98 120 175 31 534 60 ...
+##  $ Treasurer                     : Factor w/ 449 levels &quot;&quot;,&quot;AARON NOSBISCH&quot;,..: 397 89 395 250 60 374 49 71 128 437 ...
+##  $ Street_1                      : Factor w/ 450 levels &quot;&quot;,&quot;1 PENN PLAZA&quot;,..: 258 73 28 283 282 214 143 131 113 264 ...
+##  $ Street_2                      : Factor w/ 40 levels &quot;&quot;,&quot;#211&quot;,&quot;148 NASSAU AVE UPPER&quot;,..: 26 29 18 38 1 1 1 1 1 1 ...
+##  $ City                          : Factor w/ 241 levels &quot;&quot;,&quot;AKRON&quot;,&quot;ALBANY&quot;,..: 228 228 228 228 228 228 113 228 228 214 ...
+##  $ ZIP.code                      : int  20004 20005 20005 20005 20005 20001 30043 20036 20036 33606 ...
+##  $ state                         : Factor w/ 51 levels &quot;&quot;,&quot;AK&quot;,&quot;AL&quot;,&quot;AR&quot;,..: 9 9 9 9 9 9 12 9 9 11 ...
+##  $ Connected.Org.Name            : Factor w/ 28 levels &quot;&quot;,&quot;9-9-9 FUND&quot;,..: 1 16 28 16 16 1 1 1 22 1 ...
+##  $ Political.Orientation         : Factor w/ 3 levels &quot;Backs Democrats&quot;,..: 2 2 1 1 1 2 2 2 1 2 ...
+##  $ Filing.frequency              : Factor w/ 3 levels &quot;Monthly&quot;,&quot;Quarterly&quot;,..: 1 1 1 2 2 1 1 1 2 1 ...
+##  $ receipts                      : num  1.32e+08 8.01e+07 6.39e+07 3.49e+07 2.77e+07 ...
+##  $ Total.unitemized.contributions: num  298 188926 279650 43230 243088 ...
+##  $ cash.on.hand                  : num  24203768 6423726 10086434 7461199 5196881 ...
+##  $ last.report.date              : Factor w/ 29 levels &quot;&quot;,&quot;10/11/12&quot;,..: 4 4 4 4 4 4 4 4 4 4 ...
+##  $ total.IEs                     : num  1.43e+08 1.05e+08 6.62e+07 3.75e+07 3.08e+07 ...
+##  $ IEs.support.dems              : num  0 0 0 3609417 865049 ...
+##  $ IEs.oppose.dems               : num  88572359 95858190 0 0 0 ...
+##  $ IEs.support.reps              : num  14090892 8477066 0 0 0 ...
+##  $ IEs.oppose.reps               : num  39992095 375217 66182181 33868125 29709982 ...</code></pre></div>
+
+<p>PAC is a data frame with many columns. For this purpose, I’m interested in the receipts and the state identifiers.</p>
+
+<p>I needed to summarize the receipts and ensure that the states matched the codes from the states_map object. And then I had to override the “district of columbia”. At that point, I could plot out a quick view.</p>
+
+<div class="highlight"><pre><code class="language-r" data-lang="r">pdata <span class="o">&lt;-</span> ddply<span class="p">(</span>pac<span class="p">,</span> <span class="s">&quot;state&quot;</span><span class="p">,</span> summarize<span class="p">,</span> Sum <span class="o">=</span> <span class="kp">sum</span><span class="p">(</span>receipts<span class="p">,</span> na.rm <span class="o">=</span> <span class="kc">TRUE</span><span class="p">))</span>
+
+states_map <span class="o">&lt;-</span> map_data<span class="p">(</span><span class="s">&quot;state&quot;</span><span class="p">)</span>
+
+pdata<span class="o">$</span>statelc <span class="o">&lt;-</span> <span class="kp">tolower</span><span class="p">(</span>state.name<span class="p">[</span><span class="kp">match</span><span class="p">(</span>pdata<span class="o">$</span>state<span class="p">,</span> state.abb<span class="p">)])</span>
+
+pdata<span class="o">$</span>statelc<span class="p">[</span><span class="m">9</span><span class="p">]</span> <span class="o">&lt;-</span> <span class="s">&quot;district of columbia&quot;</span>
+
+ggplot<span class="p">(</span>data <span class="o">=</span> pdata<span class="p">,</span> aes<span class="p">(</span>x <span class="o">=</span> state<span class="p">,</span> y <span class="o">=</span> Sum<span class="p">))</span> <span class="o">+</span> geom_bar<span class="p">(</span>width <span class="o">=</span> <span class="m">1</span><span class="p">,</span> stat <span class="o">=</span> <span class="s">&quot;identity&quot;</span><span class="p">)</span> <span class="o">+</span> 
+    theme<span class="p">(</span>legend.position <span class="o">=</span> <span class="s">&quot;none&quot;</span><span class="p">)</span> <span class="o">+</span> labs<span class="p">(</span>x <span class="o">=</span> <span class="s">&quot;State&quot;</span><span class="p">,</span> y <span class="o">=</span> <span class="s">&quot;Receipts&quot;</span><span class="p">)</span> <span class="o">+</span> ggtitle<span class="p">(</span><span class="s">&quot;SuperPAC Receipts by State Comparison&quot;</span><span class="p">)</span></code></pre></div>
+
+<p><img src="http://schnee.github.com/figs/2014-02-11-superpac-receipts/unnamed-chunk-2.png" alt="center" /></p>
+
+<p>Unsuprisingly, most SuperPAC money flows to PACs headquartered in Washington, DC. So much money that DC will dominate subsequent plots; I decided to get rid of DC.</p>
+
+<div class="highlight"><pre><code class="language-r" data-lang="r">pdata.noDC <span class="o">=</span> <span class="kp">subset</span><span class="p">(</span>pdata<span class="p">,</span> state <span class="o">!=</span> <span class="s">&quot;DC&quot;</span><span class="p">)</span>
+
+ggplot<span class="p">(</span>pdata.noDC<span class="p">,</span> aes<span class="p">(</span>x <span class="o">=</span> state<span class="p">,</span> y <span class="o">=</span> Sum<span class="p">))</span> <span class="o">+</span> geom_bar<span class="p">(</span>width <span class="o">=</span> <span class="m">1</span><span class="p">,</span> stat <span class="o">=</span> <span class="s">&quot;identity&quot;</span><span class="p">)</span> <span class="o">+</span> 
+    theme<span class="p">(</span>legend.position <span class="o">=</span> <span class="s">&quot;none&quot;</span><span class="p">)</span> <span class="o">+</span> labs<span class="p">(</span>x <span class="o">=</span> <span class="s">&quot;State&quot;</span><span class="p">,</span> y <span class="o">=</span> <span class="s">&quot;Receipts&quot;</span><span class="p">)</span> <span class="o">+</span> ggtitle<span class="p">(</span><span class="s">&quot;SuperPAC Receipts by State Comparison\nDC omitted&quot;</span><span class="p">)</span></code></pre></div>
+
+<p><img src="http://schnee.github.com/figs/2014-02-11-superpac-receipts/unnamed-chunk-3.png" alt="center" /></p>
+
+<p>Much better.</p>
+
+<p>A quick coloring of the states with a gradient showed</p>
+
+<div class="highlight"><pre><code class="language-r" data-lang="r">ggplot<span class="p">(</span>pdata.noDC<span class="p">,</span> aes<span class="p">(</span>map_id <span class="o">=</span> statelc<span class="p">,</span> fill <span class="o">=</span> Sum<span class="p">))</span> <span class="o">+</span> geom_map<span class="p">(</span>map <span class="o">=</span> states_map<span class="p">)</span> <span class="o">+</span> 
+    expand_limits<span class="p">(</span>x <span class="o">=</span> states_map<span class="o">$</span>long<span class="p">,</span> y <span class="o">=</span> states_map<span class="o">$</span>lat<span class="p">)</span> <span class="o">+</span> coord_map<span class="p">(</span><span class="s">&quot;polyconic&quot;</span><span class="p">)</span></code></pre></div>
+
+<p><img src="http://schnee.github.com/figs/2014-02-11-superpac-receipts/unnamed-chunk-4.png" alt="center" /></p>
+
+<p>that the gradient treatment doesn’t really help distinguish between different levels: is Washington more or less than Oregon? But note that Nebraska isn’t participating in Super PAC spending at all.</p>
+
+<p>Quantization provided a better view.</p>
+
+<div class="highlight"><pre><code class="language-r" data-lang="r">qs <span class="o">=</span> quantile<span class="p">(</span>pdata.noDC<span class="o">$</span>Sum<span class="p">,</span> <span class="kt">c</span><span class="p">(</span><span class="m">0</span><span class="p">,</span> <span class="m">0.2</span><span class="p">,</span> <span class="m">0.4</span><span class="p">,</span> <span class="m">0.6</span><span class="p">,</span> <span class="m">0.8</span><span class="p">,</span> <span class="m">1</span><span class="p">))</span>
+qsf <span class="o">=</span> <span class="kp">sprintf</span><span class="p">(</span><span class="s">&quot;$%.2f&quot;</span><span class="p">,</span> qs<span class="p">)</span>
+qlabels <span class="o">=</span> <span class="kp">paste</span><span class="p">(</span><span class="kp">head</span><span class="p">(</span>qsf<span class="p">,</span> <span class="m">-1</span><span class="p">),</span> <span class="kp">tail</span><span class="p">(</span>qsf<span class="p">,</span> <span class="m">-1</span><span class="p">),</span> sep <span class="o">=</span> <span class="s">&quot; - &quot;</span><span class="p">)</span>
+
+pdata.noDC<span class="o">$</span>Sum_q <span class="o">&lt;-</span> <span class="kp">cut</span><span class="p">(</span>pdata.noDC<span class="o">$</span>Sum<span class="p">,</span> qs<span class="p">,</span> labels <span class="o">=</span> qlabels<span class="p">,</span> include.lowest <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>
+
+pal <span class="o">&lt;-</span> colorRampPalette<span class="p">(</span><span class="kt">c</span><span class="p">(</span><span class="s">&quot;grey80&quot;</span><span class="p">,</span> <span class="s">&quot;darkgreen&quot;</span><span class="p">))(</span><span class="m">5</span><span class="p">)</span>
+
+clean_theme <span class="o">&lt;-</span> theme<span class="p">(</span>axis.title <span class="o">=</span> element_blank<span class="p">(),</span> axis.text <span class="o">=</span> element_blank<span class="p">(),</span> 
+    panel.background <span class="o">=</span> element_blank<span class="p">(),</span> panel.grid <span class="o">=</span> element_blank<span class="p">(),</span> axis.ticks.length <span class="o">=</span> unit<span class="p">(</span><span class="m">0</span><span class="p">,</span> 
+        <span class="s">&quot;cm&quot;</span><span class="p">),</span> complete <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>
+
+ggplot<span class="p">(</span>pdata.noDC<span class="p">,</span> aes<span class="p">(</span>map_id <span class="o">=</span> statelc<span class="p">,</span> fill <span class="o">=</span> Sum_q<span class="p">))</span> <span class="o">+</span> geom_map<span class="p">(</span>map <span class="o">=</span> states_map<span class="p">,</span> 
+    colour <span class="o">=</span> <span class="s">&quot;black&quot;</span><span class="p">)</span> <span class="o">+</span> scale_fill_manual<span class="p">(</span>values <span class="o">=</span> pal<span class="p">)</span> <span class="o">+</span> expand_limits<span class="p">(</span>x <span class="o">=</span> states_map<span class="o">$</span>long<span class="p">,</span> 
+    y <span class="o">=</span> states_map<span class="o">$</span>lat<span class="p">)</span> <span class="o">+</span> coord_map<span class="p">(</span><span class="s">&quot;polyconic&quot;</span><span class="p">)</span> <span class="o">+</span> labs<span class="p">(</span>fill <span class="o">=</span> <span class="s">&quot;Receipts&quot;</span><span class="p">,</span> x <span class="o">=</span> <span class="s">&quot;Longitude&quot;</span><span class="p">,</span> 
+    y <span class="o">=</span> <span class="s">&quot;Latitude&quot;</span><span class="p">)</span> <span class="o">+</span> ggtitle<span class="p">(</span><span class="s">&quot;SuperPAC Receipts by State\nof Registration\nDC Omitted&quot;</span><span class="p">)</span> <span class="o">+</span> 
+    clean_theme</code></pre></div>
+
+<p><img src="http://schnee.github.com/figs/2014-02-11-superpac-receipts/unnamed-chunk-5.png" alt="center" /></p>
+
+<p>Now, we can see that Super PACs in Oregon take in fewer receipts than those in Washington.</p>
+
+<p>This was a quick way to take state-coded data and present it graphically. I would have been “done”, except that I noticed that the data has columns such as “IEs.support.dems” and “IEs.support.reps”. Sunlight <a href="http://reporting.sunlightfoundation.com/super-pac/data/about/2012-june-update/">tells</a> me that this spending is either positive (support) or negative (oppose). Doing something with that information seemed interesting, and is covered in the next post.</p>
+
+    </div>
+
+    
+
+  
+    <ul class="tag_box inline">
+      <li><i class="icon-tags"></i></li>
+      
+      
+
+
+  
+     
+    	<li><a href="/tags.html#R-ref">R <span>3</span></a></li>
+     
+    	<li><a href="/tags.html#politics-ref">politics <span>2</span></a></li>
+    
+  
+
+
+
+    </ul>
+    
+
+    <hr>
+    <div class="pagination">
+      <ul>
+      
+        <li class="prev disabled"><a>&larr; Previous</a></li>
+      
+        <li><a href="/archive.html">Archive</a></li>
+      
+        <li class="next"><a href="/2014/02/16/orientation" title="SuperPAC Spending Orientation by State">Next &rarr;</a></li>
+      
+      </ul>
+    </div>
+    <hr>
+    
+  </div>
+</div>
+
+
+      </div>
+      <hr>
+      <footer>
+        <p>&copy; 2015 <a href="http://twitter.com/schnee">Brent Schneeman</a>
+        </p>
+      </footer>
+
+    </div>
+
+    
+  </body>
+</html>
+
