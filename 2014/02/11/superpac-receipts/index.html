@@ -123,16 +123,16 @@
 
 <p>I wanted to break out the Independent Expenditures by State, and map them. I read in the data and tidied it up a bit.</p>
 
-<div class="highlight"><pre><code class="language-r" data-lang="r"><span class="kp">suppressPackageStartupMessages</span><span class="p">(</span><span class="kn">require</span><span class="p">(</span>mapproj<span class="p">))</span>
-<span class="kp">suppressPackageStartupMessages</span><span class="p">(</span><span class="kn">require</span><span class="p">(</span>ggplot2<span class="p">))</span>
-<span class="kp">suppressPackageStartupMessages</span><span class="p">(</span><span class="kn">require</span><span class="p">(</span>grid<span class="p">))</span>
-<span class="kp">suppressPackageStartupMessages</span><span class="p">(</span><span class="kn">library</span><span class="p">(</span>maps<span class="p">))</span>
-<span class="kp">suppressPackageStartupMessages</span><span class="p">(</span><span class="kn">require</span><span class="p">(</span>plyr<span class="p">))</span>
+<div class="highlight"><pre><code class="language-r" data-lang="r">suppressPackageStartupMessages(require(mapproj))
+suppressPackageStartupMessages(require(ggplot2))
+suppressPackageStartupMessages(require(grid))
+suppressPackageStartupMessages(library(maps))
+suppressPackageStartupMessages(require(plyr))
 
-pac <span class="o">&lt;-</span> read.csv<span class="p">(</span><span class="s">&quot;./committee_summary.csv&quot;</span><span class="p">,</span> header <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>
+pac &lt;- read.csv(&quot;./committee_summary.csv&quot;, header = TRUE)
 
-<span class="kp">names</span><span class="p">(</span>pac<span class="p">)[</span><span class="m">12</span><span class="p">]</span> <span class="o">&lt;-</span> <span class="s">&quot;receipts&quot;</span>
-str<span class="p">(</span>pac<span class="p">)</span></code></pre></div>
+names(pac)[12] &lt;- &quot;receipts&quot;
+str(pac)</code></pre></div>
 
 <div class="highlight"><pre><code class="language-text" data-lang="text">## &#39;data.frame&#39;:	1027 obs. of  20 variables:
 ##  $ Name                          : Factor w/ 1025 levels &quot;1911 UNITED&quot;,..: 782 56 681 525 428 380 997 210 815 334 ...
@@ -160,25 +160,25 @@ str<span class="p">(</span>pac<span class="p">)</span></code></pre></div>
 
 <p>I needed to summarize the receipts and ensure that the states matched the codes from the states_map object. And then I had to override the “district of columbia”. At that point, I could plot out a quick view.</p>
 
-<div class="highlight"><pre><code class="language-r" data-lang="r">pdata <span class="o">&lt;-</span> ddply<span class="p">(</span>pac<span class="p">,</span> <span class="s">&quot;state&quot;</span><span class="p">,</span> summarize<span class="p">,</span> Sum <span class="o">=</span> <span class="kp">sum</span><span class="p">(</span>receipts<span class="p">,</span> na.rm <span class="o">=</span> <span class="kc">TRUE</span><span class="p">))</span>
+<div class="highlight"><pre><code class="language-r" data-lang="r">pdata &lt;- ddply(pac, &quot;state&quot;, summarize, Sum = sum(receipts, na.rm = TRUE))
 
-states_map <span class="o">&lt;-</span> map_data<span class="p">(</span><span class="s">&quot;state&quot;</span><span class="p">)</span>
+states_map &lt;- map_data(&quot;state&quot;)
 
-pdata<span class="o">$</span>statelc <span class="o">&lt;-</span> <span class="kp">tolower</span><span class="p">(</span>state.name<span class="p">[</span><span class="kp">match</span><span class="p">(</span>pdata<span class="o">$</span>state<span class="p">,</span> state.abb<span class="p">)])</span>
+pdata$statelc &lt;- tolower(state.name[match(pdata$state, state.abb)])
 
-pdata<span class="o">$</span>statelc<span class="p">[</span><span class="m">9</span><span class="p">]</span> <span class="o">&lt;-</span> <span class="s">&quot;district of columbia&quot;</span>
+pdata$statelc[9] &lt;- &quot;district of columbia&quot;
 
-ggplot<span class="p">(</span>data <span class="o">=</span> pdata<span class="p">,</span> aes<span class="p">(</span>x <span class="o">=</span> state<span class="p">,</span> y <span class="o">=</span> Sum<span class="p">))</span> <span class="o">+</span> geom_bar<span class="p">(</span>width <span class="o">=</span> <span class="m">1</span><span class="p">,</span> stat <span class="o">=</span> <span class="s">&quot;identity&quot;</span><span class="p">)</span> <span class="o">+</span> 
-    theme<span class="p">(</span>legend.position <span class="o">=</span> <span class="s">&quot;none&quot;</span><span class="p">)</span> <span class="o">+</span> labs<span class="p">(</span>x <span class="o">=</span> <span class="s">&quot;State&quot;</span><span class="p">,</span> y <span class="o">=</span> <span class="s">&quot;Receipts&quot;</span><span class="p">)</span> <span class="o">+</span> ggtitle<span class="p">(</span><span class="s">&quot;SuperPAC Receipts by State Comparison&quot;</span><span class="p">)</span></code></pre></div>
+ggplot(data = pdata, aes(x = state, y = Sum)) + geom_bar(width = 1, stat = &quot;identity&quot;) + 
+    theme(legend.position = &quot;none&quot;) + labs(x = &quot;State&quot;, y = &quot;Receipts&quot;) + ggtitle(&quot;SuperPAC Receipts by State Comparison&quot;)</code></pre></div>
 
 <p><img src="http://schnee.github.com/figs/2014-02-11-superpac-receipts/unnamed-chunk-2.png" alt="center" /></p>
 
 <p>Unsuprisingly, most SuperPAC money flows to PACs headquartered in Washington, DC. So much money that DC will dominate subsequent plots; I decided to get rid of DC.</p>
 
-<div class="highlight"><pre><code class="language-r" data-lang="r">pdata.noDC <span class="o">=</span> <span class="kp">subset</span><span class="p">(</span>pdata<span class="p">,</span> state <span class="o">!=</span> <span class="s">&quot;DC&quot;</span><span class="p">)</span>
+<div class="highlight"><pre><code class="language-r" data-lang="r">pdata.noDC = subset(pdata, state != &quot;DC&quot;)
 
-ggplot<span class="p">(</span>pdata.noDC<span class="p">,</span> aes<span class="p">(</span>x <span class="o">=</span> state<span class="p">,</span> y <span class="o">=</span> Sum<span class="p">))</span> <span class="o">+</span> geom_bar<span class="p">(</span>width <span class="o">=</span> <span class="m">1</span><span class="p">,</span> stat <span class="o">=</span> <span class="s">&quot;identity&quot;</span><span class="p">)</span> <span class="o">+</span> 
-    theme<span class="p">(</span>legend.position <span class="o">=</span> <span class="s">&quot;none&quot;</span><span class="p">)</span> <span class="o">+</span> labs<span class="p">(</span>x <span class="o">=</span> <span class="s">&quot;State&quot;</span><span class="p">,</span> y <span class="o">=</span> <span class="s">&quot;Receipts&quot;</span><span class="p">)</span> <span class="o">+</span> ggtitle<span class="p">(</span><span class="s">&quot;SuperPAC Receipts by State Comparison\nDC omitted&quot;</span><span class="p">)</span></code></pre></div>
+ggplot(pdata.noDC, aes(x = state, y = Sum)) + geom_bar(width = 1, stat = &quot;identity&quot;) + 
+    theme(legend.position = &quot;none&quot;) + labs(x = &quot;State&quot;, y = &quot;Receipts&quot;) + ggtitle(&quot;SuperPAC Receipts by State Comparison\nDC omitted&quot;)</code></pre></div>
 
 <p><img src="http://schnee.github.com/figs/2014-02-11-superpac-receipts/unnamed-chunk-3.png" alt="center" /></p>
 
@@ -186,8 +186,8 @@ ggplot<span class="p">(</span>pdata.noDC<span class="p">,</span> aes<span class=
 
 <p>A quick coloring of the states with a gradient showed</p>
 
-<div class="highlight"><pre><code class="language-r" data-lang="r">ggplot<span class="p">(</span>pdata.noDC<span class="p">,</span> aes<span class="p">(</span>map_id <span class="o">=</span> statelc<span class="p">,</span> fill <span class="o">=</span> Sum<span class="p">))</span> <span class="o">+</span> geom_map<span class="p">(</span>map <span class="o">=</span> states_map<span class="p">)</span> <span class="o">+</span> 
-    expand_limits<span class="p">(</span>x <span class="o">=</span> states_map<span class="o">$</span>long<span class="p">,</span> y <span class="o">=</span> states_map<span class="o">$</span>lat<span class="p">)</span> <span class="o">+</span> coord_map<span class="p">(</span><span class="s">&quot;polyconic&quot;</span><span class="p">)</span></code></pre></div>
+<div class="highlight"><pre><code class="language-r" data-lang="r">ggplot(pdata.noDC, aes(map_id = statelc, fill = Sum)) + geom_map(map = states_map) + 
+    expand_limits(x = states_map$long, y = states_map$lat) + coord_map(&quot;polyconic&quot;)</code></pre></div>
 
 <p><img src="http://schnee.github.com/figs/2014-02-11-superpac-receipts/unnamed-chunk-4.png" alt="center" /></p>
 
@@ -195,22 +195,22 @@ ggplot<span class="p">(</span>pdata.noDC<span class="p">,</span> aes<span class=
 
 <p>Quantization provided a better view.</p>
 
-<div class="highlight"><pre><code class="language-r" data-lang="r">qs <span class="o">=</span> quantile<span class="p">(</span>pdata.noDC<span class="o">$</span>Sum<span class="p">,</span> <span class="kt">c</span><span class="p">(</span><span class="m">0</span><span class="p">,</span> <span class="m">0.2</span><span class="p">,</span> <span class="m">0.4</span><span class="p">,</span> <span class="m">0.6</span><span class="p">,</span> <span class="m">0.8</span><span class="p">,</span> <span class="m">1</span><span class="p">))</span>
-qsf <span class="o">=</span> <span class="kp">sprintf</span><span class="p">(</span><span class="s">&quot;$%.2f&quot;</span><span class="p">,</span> qs<span class="p">)</span>
-qlabels <span class="o">=</span> <span class="kp">paste</span><span class="p">(</span><span class="kp">head</span><span class="p">(</span>qsf<span class="p">,</span> <span class="m">-1</span><span class="p">),</span> <span class="kp">tail</span><span class="p">(</span>qsf<span class="p">,</span> <span class="m">-1</span><span class="p">),</span> sep <span class="o">=</span> <span class="s">&quot; - &quot;</span><span class="p">)</span>
+<div class="highlight"><pre><code class="language-r" data-lang="r">qs = quantile(pdata.noDC$Sum, c(0, 0.2, 0.4, 0.6, 0.8, 1))
+qsf = sprintf(&quot;$%.2f&quot;, qs)
+qlabels = paste(head(qsf, -1), tail(qsf, -1), sep = &quot; - &quot;)
 
-pdata.noDC<span class="o">$</span>Sum_q <span class="o">&lt;-</span> <span class="kp">cut</span><span class="p">(</span>pdata.noDC<span class="o">$</span>Sum<span class="p">,</span> qs<span class="p">,</span> labels <span class="o">=</span> qlabels<span class="p">,</span> include.lowest <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>
+pdata.noDC$Sum_q &lt;- cut(pdata.noDC$Sum, qs, labels = qlabels, include.lowest = TRUE)
 
-pal <span class="o">&lt;-</span> colorRampPalette<span class="p">(</span><span class="kt">c</span><span class="p">(</span><span class="s">&quot;grey80&quot;</span><span class="p">,</span> <span class="s">&quot;darkgreen&quot;</span><span class="p">))(</span><span class="m">5</span><span class="p">)</span>
+pal &lt;- colorRampPalette(c(&quot;grey80&quot;, &quot;darkgreen&quot;))(5)
 
-clean_theme <span class="o">&lt;-</span> theme<span class="p">(</span>axis.title <span class="o">=</span> element_blank<span class="p">(),</span> axis.text <span class="o">=</span> element_blank<span class="p">(),</span> 
-    panel.background <span class="o">=</span> element_blank<span class="p">(),</span> panel.grid <span class="o">=</span> element_blank<span class="p">(),</span> axis.ticks.length <span class="o">=</span> unit<span class="p">(</span><span class="m">0</span><span class="p">,</span> 
-        <span class="s">&quot;cm&quot;</span><span class="p">),</span> complete <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>
+clean_theme &lt;- theme(axis.title = element_blank(), axis.text = element_blank(), 
+    panel.background = element_blank(), panel.grid = element_blank(), axis.ticks.length = unit(0, 
+        &quot;cm&quot;), complete = TRUE)
 
-ggplot<span class="p">(</span>pdata.noDC<span class="p">,</span> aes<span class="p">(</span>map_id <span class="o">=</span> statelc<span class="p">,</span> fill <span class="o">=</span> Sum_q<span class="p">))</span> <span class="o">+</span> geom_map<span class="p">(</span>map <span class="o">=</span> states_map<span class="p">,</span> 
-    colour <span class="o">=</span> <span class="s">&quot;black&quot;</span><span class="p">)</span> <span class="o">+</span> scale_fill_manual<span class="p">(</span>values <span class="o">=</span> pal<span class="p">)</span> <span class="o">+</span> expand_limits<span class="p">(</span>x <span class="o">=</span> states_map<span class="o">$</span>long<span class="p">,</span> 
-    y <span class="o">=</span> states_map<span class="o">$</span>lat<span class="p">)</span> <span class="o">+</span> coord_map<span class="p">(</span><span class="s">&quot;polyconic&quot;</span><span class="p">)</span> <span class="o">+</span> labs<span class="p">(</span>fill <span class="o">=</span> <span class="s">&quot;Receipts&quot;</span><span class="p">,</span> x <span class="o">=</span> <span class="s">&quot;Longitude&quot;</span><span class="p">,</span> 
-    y <span class="o">=</span> <span class="s">&quot;Latitude&quot;</span><span class="p">)</span> <span class="o">+</span> ggtitle<span class="p">(</span><span class="s">&quot;SuperPAC Receipts by State\nof Registration\nDC Omitted&quot;</span><span class="p">)</span> <span class="o">+</span> 
+ggplot(pdata.noDC, aes(map_id = statelc, fill = Sum_q)) + geom_map(map = states_map, 
+    colour = &quot;black&quot;) + scale_fill_manual(values = pal) + expand_limits(x = states_map$long, 
+    y = states_map$lat) + coord_map(&quot;polyconic&quot;) + labs(fill = &quot;Receipts&quot;, x = &quot;Longitude&quot;, 
+    y = &quot;Latitude&quot;) + ggtitle(&quot;SuperPAC Receipts by State\nof Registration\nDC Omitted&quot;) + 
     clean_theme</code></pre></div>
 
 <p><img src="http://schnee.github.com/figs/2014-02-11-superpac-receipts/unnamed-chunk-5.png" alt="center" /></p>

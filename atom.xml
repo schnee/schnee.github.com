@@ -4,22 +4,13 @@
  <title>schnee</title>
  <link href="http://schnee.github.io/" rel="self"/>
  <link href="http://schnee.github.io"/>
- <updated>2015-06-01T11:44:01-05:00</updated>
+ <updated>2015-06-02T12:41:51-05:00</updated>
  <id>http://schnee.github.io</id>
  <author>
    <name>Brent Schneeman</name>
    <email>schneeman@gmail.com</email>
  </author>
 
- 
- <entry>
-   <title>Octopressing</title>
-   <link href="http://schnee.github.io/2015/06/01/octopressing"/>
-   <updated>2015-06-01T11:42:11-05:00</updated>
-   <id>http://schnee.github.io/2015/06/01/octopressing</id>
-   <content type="html">&lt;p&gt;Attempting to publish with Octopress&lt;/p&gt;
-</content>
- </entry>
  
  <entry>
    <title>Binning Continuous Data</title>
@@ -30,21 +21,21 @@
 
 &lt;p&gt;The data’s values were outside the (absolute) maximum of the band; I wanted to bucket anything that exceeded the band into the maximum bands. In the future, I’ll change the labels of the interval factor to indicate this.&lt;/p&gt;
 
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;kn&quot;&gt;require&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;ggplot2&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;kn&quot;&gt;require&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;RColorBrewer&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;kp&quot;&gt;set.seed&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1492&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;  &lt;span class=&quot;c1&quot;&gt;#discovery!&lt;/span&gt;
-sample &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;data.frame&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;x &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;20&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; y &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; obs &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; runif&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;20&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;-150&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;150&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
-the.breaks &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;seq&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;-100&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;100&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; by &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;20&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;require(ggplot2)
+require(RColorBrewer)
+set.seed(1492)  #discovery!
+sample = data.frame(x = c(1:20), y = 1, obs = runif(20, -150, 150))
+the.breaks = seq(-100, 100, by = 20)
 
-&lt;span class=&quot;kp&quot;&gt;sample&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;interval &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;factor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kp&quot;&gt;findInterval&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kp&quot;&gt;sample&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;obs&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; vec &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; the.breaks&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; all.inside &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;TRUE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; 
-    labels &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; the.breaks&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; levels &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;kp&quot;&gt;length&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;the.breaks&lt;span class=&quot;p&quot;&gt;)))&lt;/span&gt;
+sample$interval = factor(findInterval(sample$obs, vec = the.breaks, all.inside = TRUE), 
+    labels = the.breaks, levels = c(1:length(the.breaks)))
 
-pal &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;rev&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;brewer.pal&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;11&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;RdBu&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+pal = rev(brewer.pal(11, &amp;quot;RdBu&amp;quot;))
 
-p &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; ggplot&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kp&quot;&gt;sample&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; aes&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;x&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; y&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; colour &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; interval&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
-p &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; p &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; geom_point&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;size &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-p &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; p &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; scale_colour_manual&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;values &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; pal&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; limits &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; the.breaks&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; labels &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; the.breaks&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-p &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; p &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; guides&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;colour &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; guide_legend&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;override.aes &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;list&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;size &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; shape &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;19&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)))&lt;/span&gt;
+p = ggplot(sample, aes(x, y, colour = interval))
+p = p + geom_point(size = 10)
+p = p + scale_colour_manual(values = pal, limits = the.breaks, labels = the.breaks)
+p = p + guides(colour = guide_legend(override.aes = list(size = 3, shape = 19)))
 p&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;&lt;img src=&quot;http://schnee.github.com/figs/2014-03-31-binning/unnamed-chunk-1.png&quot; alt=&quot;center&quot; /&gt;&lt;/p&gt;
@@ -61,33 +52,33 @@ p&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;&lt;em&gt;Technical note: I took this opportunity to start exploring the &lt;a href=&quot;http://cran.r-project.org/web/packages/dplyr/index.html&quot;&gt;dplyr&lt;/a&gt; R package. I think I like it.&lt;/em&gt;&lt;/p&gt;
 
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;kp&quot;&gt;suppressPackageStartupMessages&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kn&quot;&gt;require&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;ggplot2&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
-&lt;span class=&quot;kp&quot;&gt;suppressPackageStartupMessages&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kn&quot;&gt;require&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;dplyr&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
-&lt;span class=&quot;kp&quot;&gt;suppressPackageStartupMessages&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kn&quot;&gt;require&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;maps&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
-&lt;span class=&quot;kp&quot;&gt;suppressPackageStartupMessages&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kn&quot;&gt;require&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;grid&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
-&lt;span class=&quot;kp&quot;&gt;suppressPackageStartupMessages&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kn&quot;&gt;require&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;mapproj&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
-&lt;span class=&quot;kp&quot;&gt;suppressPackageStartupMessages&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kn&quot;&gt;require&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;scales&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;suppressPackageStartupMessages(require(ggplot2))
+suppressPackageStartupMessages(require(dplyr))
+suppressPackageStartupMessages(require(maps))
+suppressPackageStartupMessages(require(grid))
+suppressPackageStartupMessages(require(mapproj))
+suppressPackageStartupMessages(require(scales))
 
-pac &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; read.csv&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;./committee_summary.csv&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; header &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;TRUE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+pac &amp;lt;- read.csv(&amp;quot;./committee_summary.csv&amp;quot;, header = TRUE)
 
-superpac.spend &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; pac &lt;span class=&quot;o&quot;&gt;%.%&lt;/span&gt; group_by&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;state&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%.%&lt;/span&gt; summarise&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;or &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;sum&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;IEs.oppose.reps&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; 
-    od &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;sum&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;IEs.oppose.dems&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; sr &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;sum&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;IEs.support.reps&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; sd &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;sum&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;IEs.support.dems&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%.%&lt;/span&gt; 
-    arrange&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;state&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+superpac.spend = pac %.% group_by(state) %.% summarise(or = sum(IEs.oppose.reps), 
+    od = sum(IEs.oppose.dems), sr = sum(IEs.support.reps), sd = sum(IEs.support.dems)) %.% 
+    arrange(state)
 
-states_map &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; map_data&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;state&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+states_map &amp;lt;- map_data(&amp;quot;state&amp;quot;)
 
-superpac.spend&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;statelc &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;tolower&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;state.name&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;kp&quot;&gt;match&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;superpac.spend&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;state&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; state.abb&lt;span class=&quot;p&quot;&gt;)])&lt;/span&gt;
+superpac.spend$statelc &amp;lt;- tolower(state.name[match(superpac.spend$state, state.abb)])
 
-superpac.spend&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;statelc&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;9&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;district of columbia&amp;quot;&lt;/span&gt;
+superpac.spend$statelc[9] &amp;lt;- &amp;quot;district of columbia&amp;quot;
 
-superpac.spend&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;support &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;superpac.spend&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;sr &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; superpac.spend&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;sd&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;superpac.spend&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;sd &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; 
-    superpac.spend&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;sr&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-superpac.spend&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;oppose &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;superpac.spend&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;or &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; superpac.spend&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;od&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;superpac.spend&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;od &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; 
-    superpac.spend&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;or&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+superpac.spend$support &amp;lt;- (superpac.spend$sr - superpac.spend$sd)/(superpac.spend$sd + 
+    superpac.spend$sr)
+superpac.spend$oppose &amp;lt;- (superpac.spend$or - superpac.spend$od)/(superpac.spend$od + 
+    superpac.spend$or)&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;At this point, superpac.spend is a nice little table&lt;/p&gt;
 
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;kp&quot;&gt;suppressMessages&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kp&quot;&gt;head&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;tbl_dt&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;superpac.spend&lt;span class=&quot;p&quot;&gt;)))&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;suppressMessages(head(tbl_dt(superpac.spend)))&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;##   state      or      od      sr      sd    statelc support  oppose
 ## 1             0       0       0       0       &amp;lt;NA&amp;gt;     NaN     NaN
@@ -101,26 +92,26 @@ superpac.spend&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;oppose &lt;span clas
 
 &lt;p&gt;We went to all the trouble of getting the state names (statelc). Let’s use it to plot:&lt;/p&gt;
 
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;clean_theme &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; theme&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;axis.title &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; element_blank&lt;span class=&quot;p&quot;&gt;(),&lt;/span&gt; axis.text &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; element_blank&lt;span class=&quot;p&quot;&gt;(),&lt;/span&gt; 
-    panel.background &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; element_blank&lt;span class=&quot;p&quot;&gt;(),&lt;/span&gt; panel.grid &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; element_blank&lt;span class=&quot;p&quot;&gt;(),&lt;/span&gt; axis.ticks.length &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; unit&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
-        &lt;span class=&quot;s&quot;&gt;&amp;quot;cm&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; complete &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;TRUE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;clean_theme &amp;lt;- theme(axis.title = element_blank(), axis.text = element_blank(), 
+    panel.background = element_blank(), panel.grid = element_blank(), axis.ticks.length = unit(0, 
+        &amp;quot;cm&amp;quot;), complete = TRUE)
 
-ggplot&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;superpac.spend&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; aes&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;map_id &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; statelc&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; fill &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; support&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; geom_map&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;map &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; states_map&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; 
-    expand_limits&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;x &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; states_map&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;long&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; y &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; states_map&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;lat&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; coord_map&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;polyconic&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; 
-    scale_fill_gradient2&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;high &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; muted&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;red&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; low &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; muted&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;blue&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; mid &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;white&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
-        labels &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;Democratic&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;Mostly Democratic&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;Even&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;Mostly Republican&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
-            &lt;span class=&quot;s&quot;&gt;&amp;quot;Republican&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; labs&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;fill &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;Supporting\nOrientation&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; ggtitle&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;Statewise Spending Orientation\n2011-2012 Election Cycle\n[Supporting]&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; 
+ggplot(superpac.spend, aes(map_id = statelc, fill = support)) + geom_map(map = states_map) + 
+    expand_limits(x = states_map$long, y = states_map$lat) + coord_map(&amp;quot;polyconic&amp;quot;) + 
+    scale_fill_gradient2(high = muted(&amp;quot;red&amp;quot;), low = muted(&amp;quot;blue&amp;quot;), mid = &amp;quot;white&amp;quot;, 
+        labels = c(&amp;quot;Democratic&amp;quot;, &amp;quot;Mostly Democratic&amp;quot;, &amp;quot;Even&amp;quot;, &amp;quot;Mostly Republican&amp;quot;, 
+            &amp;quot;Republican&amp;quot;)) + labs(fill = &amp;quot;Supporting\nOrientation&amp;quot;) + ggtitle(&amp;quot;Statewise Spending Orientation\n2011-2012 Election Cycle\n[Supporting]&amp;quot;) + 
     clean_theme&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;&lt;img src=&quot;http://schnee.github.com/figs/2014-02-16-orientation/unnamed-chunk-3.png&quot; alt=&quot;center&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;and&lt;/p&gt;
 
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;ggplot&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;superpac.spend&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; aes&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;map_id &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; statelc&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; fill &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; oppose&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; geom_map&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;map &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; states_map&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; 
-    expand_limits&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;x &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; states_map&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;long&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; y &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; states_map&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;lat&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; coord_map&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;polyconic&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; 
-    scale_fill_gradient2&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;high &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; muted&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;red&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; low &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; muted&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;blue&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; mid &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;white&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
-        labels &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;Democratic&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;Mostly Democratic&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;Even&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;Mostly Republican&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
-            &lt;span class=&quot;s&quot;&gt;&amp;quot;Republican&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; labs&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;fill &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;Opposing\nOrientation&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; ggtitle&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;Statewise Spending Orientation\n2011-2012 Election Cycle\n[Opposing]&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; 
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;ggplot(superpac.spend, aes(map_id = statelc, fill = oppose)) + geom_map(map = states_map) + 
+    expand_limits(x = states_map$long, y = states_map$lat) + coord_map(&amp;quot;polyconic&amp;quot;) + 
+    scale_fill_gradient2(high = muted(&amp;quot;red&amp;quot;), low = muted(&amp;quot;blue&amp;quot;), mid = &amp;quot;white&amp;quot;, 
+        labels = c(&amp;quot;Democratic&amp;quot;, &amp;quot;Mostly Democratic&amp;quot;, &amp;quot;Even&amp;quot;, &amp;quot;Mostly Republican&amp;quot;, 
+            &amp;quot;Republican&amp;quot;)) + labs(fill = &amp;quot;Opposing\nOrientation&amp;quot;) + ggtitle(&amp;quot;Statewise Spending Orientation\n2011-2012 Election Cycle\n[Opposing]&amp;quot;) + 
     clean_theme&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;&lt;img src=&quot;http://schnee.github.com/figs/2014-02-16-orientation/unnamed-chunk-4.png&quot; alt=&quot;center&quot; /&gt;&lt;/p&gt;
@@ -140,16 +131,16 @@ ggplot&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;superpac.spend&lt;span class
 
 &lt;p&gt;I wanted to break out the Independent Expenditures by State, and map them. I read in the data and tidied it up a bit.&lt;/p&gt;
 
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;kp&quot;&gt;suppressPackageStartupMessages&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kn&quot;&gt;require&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;mapproj&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
-&lt;span class=&quot;kp&quot;&gt;suppressPackageStartupMessages&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kn&quot;&gt;require&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;ggplot2&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
-&lt;span class=&quot;kp&quot;&gt;suppressPackageStartupMessages&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kn&quot;&gt;require&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;grid&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
-&lt;span class=&quot;kp&quot;&gt;suppressPackageStartupMessages&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kn&quot;&gt;library&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;maps&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
-&lt;span class=&quot;kp&quot;&gt;suppressPackageStartupMessages&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kn&quot;&gt;require&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;plyr&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;suppressPackageStartupMessages(require(mapproj))
+suppressPackageStartupMessages(require(ggplot2))
+suppressPackageStartupMessages(require(grid))
+suppressPackageStartupMessages(library(maps))
+suppressPackageStartupMessages(require(plyr))
 
-pac &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; read.csv&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;./committee_summary.csv&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; header &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;TRUE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+pac &amp;lt;- read.csv(&amp;quot;./committee_summary.csv&amp;quot;, header = TRUE)
 
-&lt;span class=&quot;kp&quot;&gt;names&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;pac&lt;span class=&quot;p&quot;&gt;)[&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;12&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;receipts&amp;quot;&lt;/span&gt;
-str&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;pac&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+names(pac)[12] &amp;lt;- &amp;quot;receipts&amp;quot;
+str(pac)&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## &amp;#39;data.frame&amp;#39;:	1027 obs. of  20 variables:
 ##  $ Name                          : Factor w/ 1025 levels &amp;quot;1911 UNITED&amp;quot;,..: 782 56 681 525 428 380 997 210 815 334 ...
@@ -177,25 +168,25 @@ str&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;pac&lt;span class=&quot;p&quot;
 
 &lt;p&gt;I needed to summarize the receipts and ensure that the states matched the codes from the states_map object. And then I had to override the “district of columbia”. At that point, I could plot out a quick view.&lt;/p&gt;
 
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;pdata &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; ddply&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;pac&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;state&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; summarize&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; Sum &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;sum&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;receipts&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; na.rm &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;TRUE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;pdata &amp;lt;- ddply(pac, &amp;quot;state&amp;quot;, summarize, Sum = sum(receipts, na.rm = TRUE))
 
-states_map &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; map_data&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;state&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+states_map &amp;lt;- map_data(&amp;quot;state&amp;quot;)
 
-pdata&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;statelc &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;tolower&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;state.name&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;kp&quot;&gt;match&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;pdata&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;state&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; state.abb&lt;span class=&quot;p&quot;&gt;)])&lt;/span&gt;
+pdata$statelc &amp;lt;- tolower(state.name[match(pdata$state, state.abb)])
 
-pdata&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;statelc&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;9&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;district of columbia&amp;quot;&lt;/span&gt;
+pdata$statelc[9] &amp;lt;- &amp;quot;district of columbia&amp;quot;
 
-ggplot&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;data &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; pdata&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; aes&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;x &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; state&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; y &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; Sum&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; geom_bar&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;width &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; stat &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;identity&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; 
-    theme&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;legend.position &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;none&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; labs&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;x &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;State&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; y &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;Receipts&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; ggtitle&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;SuperPAC Receipts by State Comparison&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+ggplot(data = pdata, aes(x = state, y = Sum)) + geom_bar(width = 1, stat = &amp;quot;identity&amp;quot;) + 
+    theme(legend.position = &amp;quot;none&amp;quot;) + labs(x = &amp;quot;State&amp;quot;, y = &amp;quot;Receipts&amp;quot;) + ggtitle(&amp;quot;SuperPAC Receipts by State Comparison&amp;quot;)&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;&lt;img src=&quot;http://schnee.github.com/figs/2014-02-11-superpac-receipts/unnamed-chunk-2.png&quot; alt=&quot;center&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Unsuprisingly, most SuperPAC money flows to PACs headquartered in Washington, DC. So much money that DC will dominate subsequent plots; I decided to get rid of DC.&lt;/p&gt;
 
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;pdata.noDC &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;subset&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;pdata&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; state &lt;span class=&quot;o&quot;&gt;!=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;DC&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;pdata.noDC = subset(pdata, state != &amp;quot;DC&amp;quot;)
 
-ggplot&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;pdata.noDC&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; aes&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;x &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; state&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; y &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; Sum&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; geom_bar&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;width &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; stat &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;identity&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; 
-    theme&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;legend.position &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;none&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; labs&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;x &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;State&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; y &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;Receipts&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; ggtitle&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;SuperPAC Receipts by State Comparison\nDC omitted&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+ggplot(pdata.noDC, aes(x = state, y = Sum)) + geom_bar(width = 1, stat = &amp;quot;identity&amp;quot;) + 
+    theme(legend.position = &amp;quot;none&amp;quot;) + labs(x = &amp;quot;State&amp;quot;, y = &amp;quot;Receipts&amp;quot;) + ggtitle(&amp;quot;SuperPAC Receipts by State Comparison\nDC omitted&amp;quot;)&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;&lt;img src=&quot;http://schnee.github.com/figs/2014-02-11-superpac-receipts/unnamed-chunk-3.png&quot; alt=&quot;center&quot; /&gt;&lt;/p&gt;
 
@@ -203,8 +194,8 @@ ggplot&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;pdata.noDC&lt;span class=&qu
 
 &lt;p&gt;A quick coloring of the states with a gradient showed&lt;/p&gt;
 
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;ggplot&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;pdata.noDC&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; aes&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;map_id &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; statelc&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; fill &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; Sum&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; geom_map&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;map &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; states_map&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; 
-    expand_limits&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;x &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; states_map&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;long&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; y &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; states_map&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;lat&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; coord_map&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;polyconic&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;ggplot(pdata.noDC, aes(map_id = statelc, fill = Sum)) + geom_map(map = states_map) + 
+    expand_limits(x = states_map$long, y = states_map$lat) + coord_map(&amp;quot;polyconic&amp;quot;)&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;&lt;img src=&quot;http://schnee.github.com/figs/2014-02-11-superpac-receipts/unnamed-chunk-4.png&quot; alt=&quot;center&quot; /&gt;&lt;/p&gt;
 
@@ -212,22 +203,22 @@ ggplot&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;pdata.noDC&lt;span class=&qu
 
 &lt;p&gt;Quantization provided a better view.&lt;/p&gt;
 
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;qs &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; quantile&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;pdata.noDC&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;Sum&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0.2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0.4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0.6&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0.8&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
-qsf &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;sprintf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;$%.2f&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; qs&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-qlabels &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;paste&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kp&quot;&gt;head&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;qsf&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;-1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;tail&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;qsf&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;-1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; sep &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot; - &amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;qs = quantile(pdata.noDC$Sum, c(0, 0.2, 0.4, 0.6, 0.8, 1))
+qsf = sprintf(&amp;quot;$%.2f&amp;quot;, qs)
+qlabels = paste(head(qsf, -1), tail(qsf, -1), sep = &amp;quot; - &amp;quot;)
 
-pdata.noDC&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;Sum_q &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;cut&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;pdata.noDC&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;Sum&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; qs&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; labels &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; qlabels&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; include.lowest &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;TRUE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+pdata.noDC$Sum_q &amp;lt;- cut(pdata.noDC$Sum, qs, labels = qlabels, include.lowest = TRUE)
 
-pal &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; colorRampPalette&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;grey80&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;darkgreen&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+pal &amp;lt;- colorRampPalette(c(&amp;quot;grey80&amp;quot;, &amp;quot;darkgreen&amp;quot;))(5)
 
-clean_theme &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; theme&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;axis.title &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; element_blank&lt;span class=&quot;p&quot;&gt;(),&lt;/span&gt; axis.text &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; element_blank&lt;span class=&quot;p&quot;&gt;(),&lt;/span&gt; 
-    panel.background &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; element_blank&lt;span class=&quot;p&quot;&gt;(),&lt;/span&gt; panel.grid &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; element_blank&lt;span class=&quot;p&quot;&gt;(),&lt;/span&gt; axis.ticks.length &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; unit&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
-        &lt;span class=&quot;s&quot;&gt;&amp;quot;cm&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; complete &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;TRUE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+clean_theme &amp;lt;- theme(axis.title = element_blank(), axis.text = element_blank(), 
+    panel.background = element_blank(), panel.grid = element_blank(), axis.ticks.length = unit(0, 
+        &amp;quot;cm&amp;quot;), complete = TRUE)
 
-ggplot&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;pdata.noDC&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; aes&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;map_id &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; statelc&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; fill &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; Sum_q&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; geom_map&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;map &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; states_map&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
-    colour &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;black&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; scale_fill_manual&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;values &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; pal&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; expand_limits&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;x &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; states_map&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;long&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
-    y &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; states_map&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;lat&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; coord_map&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;polyconic&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; labs&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;fill &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;Receipts&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; x &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;Longitude&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
-    y &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;Latitude&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; ggtitle&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;SuperPAC Receipts by State\nof Registration\nDC Omitted&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; 
+ggplot(pdata.noDC, aes(map_id = statelc, fill = Sum_q)) + geom_map(map = states_map, 
+    colour = &amp;quot;black&amp;quot;) + scale_fill_manual(values = pal) + expand_limits(x = states_map$long, 
+    y = states_map$lat) + coord_map(&amp;quot;polyconic&amp;quot;) + labs(fill = &amp;quot;Receipts&amp;quot;, x = &amp;quot;Longitude&amp;quot;, 
+    y = &amp;quot;Latitude&amp;quot;) + ggtitle(&amp;quot;SuperPAC Receipts by State\nof Registration\nDC Omitted&amp;quot;) + 
     clean_theme&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;&lt;img src=&quot;http://schnee.github.com/figs/2014-02-11-superpac-receipts/unnamed-chunk-5.png&quot; alt=&quot;center&quot; /&gt;&lt;/p&gt;

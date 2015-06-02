@@ -123,21 +123,21 @@
 
 <p>The data’s values were outside the (absolute) maximum of the band; I wanted to bucket anything that exceeded the band into the maximum bands. In the future, I’ll change the labels of the interval factor to indicate this.</p>
 
-<div class="highlight"><pre><code class="language-r" data-lang="r"><span class="kn">require</span><span class="p">(</span>ggplot2<span class="p">)</span>
-<span class="kn">require</span><span class="p">(</span>RColorBrewer<span class="p">)</span>
-<span class="kp">set.seed</span><span class="p">(</span><span class="m">1492</span><span class="p">)</span>  <span class="c1">#discovery!</span>
-sample <span class="o">=</span> <span class="kt">data.frame</span><span class="p">(</span>x <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="m">1</span><span class="o">:</span><span class="m">20</span><span class="p">),</span> y <span class="o">=</span> <span class="m">1</span><span class="p">,</span> obs <span class="o">=</span> runif<span class="p">(</span><span class="m">20</span><span class="p">,</span> <span class="m">-150</span><span class="p">,</span> <span class="m">150</span><span class="p">))</span>
-the.breaks <span class="o">=</span> <span class="kp">seq</span><span class="p">(</span><span class="m">-100</span><span class="p">,</span> <span class="m">100</span><span class="p">,</span> by <span class="o">=</span> <span class="m">20</span><span class="p">)</span>
+<div class="highlight"><pre><code class="language-r" data-lang="r">require(ggplot2)
+require(RColorBrewer)
+set.seed(1492)  #discovery!
+sample = data.frame(x = c(1:20), y = 1, obs = runif(20, -150, 150))
+the.breaks = seq(-100, 100, by = 20)
 
-<span class="kp">sample</span><span class="o">$</span>interval <span class="o">=</span> <span class="kp">factor</span><span class="p">(</span><span class="kp">findInterval</span><span class="p">(</span><span class="kp">sample</span><span class="o">$</span>obs<span class="p">,</span> vec <span class="o">=</span> the.breaks<span class="p">,</span> all.inside <span class="o">=</span> <span class="kc">TRUE</span><span class="p">),</span> 
-    labels <span class="o">=</span> the.breaks<span class="p">,</span> levels <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="m">1</span><span class="o">:</span><span class="kp">length</span><span class="p">(</span>the.breaks<span class="p">)))</span>
+sample$interval = factor(findInterval(sample$obs, vec = the.breaks, all.inside = TRUE), 
+    labels = the.breaks, levels = c(1:length(the.breaks)))
 
-pal <span class="o">=</span> <span class="kp">rev</span><span class="p">(</span>brewer.pal<span class="p">(</span><span class="m">11</span><span class="p">,</span> <span class="s">&quot;RdBu&quot;</span><span class="p">))</span>
+pal = rev(brewer.pal(11, &quot;RdBu&quot;))
 
-p <span class="o">=</span> ggplot<span class="p">(</span><span class="kp">sample</span><span class="p">,</span> aes<span class="p">(</span>x<span class="p">,</span> y<span class="p">,</span> colour <span class="o">=</span> interval<span class="p">))</span>
-p <span class="o">=</span> p <span class="o">+</span> geom_point<span class="p">(</span>size <span class="o">=</span> <span class="m">10</span><span class="p">)</span>
-p <span class="o">=</span> p <span class="o">+</span> scale_colour_manual<span class="p">(</span>values <span class="o">=</span> pal<span class="p">,</span> limits <span class="o">=</span> the.breaks<span class="p">,</span> labels <span class="o">=</span> the.breaks<span class="p">)</span>
-p <span class="o">=</span> p <span class="o">+</span> guides<span class="p">(</span>colour <span class="o">=</span> guide_legend<span class="p">(</span>override.aes <span class="o">=</span> <span class="kt">list</span><span class="p">(</span>size <span class="o">=</span> <span class="m">3</span><span class="p">,</span> shape <span class="o">=</span> <span class="m">19</span><span class="p">)))</span>
+p = ggplot(sample, aes(x, y, colour = interval))
+p = p + geom_point(size = 10)
+p = p + scale_colour_manual(values = pal, limits = the.breaks, labels = the.breaks)
+p = p + guides(colour = guide_legend(override.aes = list(size = 3, shape = 19)))
 p</code></pre></div>
 
 <p><img src="http://schnee.github.com/figs/2014-03-31-binning/unnamed-chunk-1.png" alt="center" /></p>
@@ -173,7 +173,7 @@ p</code></pre></div>
       
         <li><a href="/archive.html">Archive</a></li>
       
-        <li class="next"><a href="/2015/06/01/octopressing" title="Octopressing">Next &rarr;</a></li>
+        <li class="next disabled"><a>Next &rarr;</a>
       
       </ul>
     </div>

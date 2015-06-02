@@ -123,33 +123,33 @@
 
 <p><em>Technical note: I took this opportunity to start exploring the <a href="http://cran.r-project.org/web/packages/dplyr/index.html">dplyr</a> R package. I think I like it.</em></p>
 
-<div class="highlight"><pre><code class="language-r" data-lang="r"><span class="kp">suppressPackageStartupMessages</span><span class="p">(</span><span class="kn">require</span><span class="p">(</span>ggplot2<span class="p">))</span>
-<span class="kp">suppressPackageStartupMessages</span><span class="p">(</span><span class="kn">require</span><span class="p">(</span>dplyr<span class="p">))</span>
-<span class="kp">suppressPackageStartupMessages</span><span class="p">(</span><span class="kn">require</span><span class="p">(</span>maps<span class="p">))</span>
-<span class="kp">suppressPackageStartupMessages</span><span class="p">(</span><span class="kn">require</span><span class="p">(</span>grid<span class="p">))</span>
-<span class="kp">suppressPackageStartupMessages</span><span class="p">(</span><span class="kn">require</span><span class="p">(</span>mapproj<span class="p">))</span>
-<span class="kp">suppressPackageStartupMessages</span><span class="p">(</span><span class="kn">require</span><span class="p">(</span>scales<span class="p">))</span>
+<div class="highlight"><pre><code class="language-r" data-lang="r">suppressPackageStartupMessages(require(ggplot2))
+suppressPackageStartupMessages(require(dplyr))
+suppressPackageStartupMessages(require(maps))
+suppressPackageStartupMessages(require(grid))
+suppressPackageStartupMessages(require(mapproj))
+suppressPackageStartupMessages(require(scales))
 
-pac <span class="o">&lt;-</span> read.csv<span class="p">(</span><span class="s">&quot;./committee_summary.csv&quot;</span><span class="p">,</span> header <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>
+pac &lt;- read.csv(&quot;./committee_summary.csv&quot;, header = TRUE)
 
-superpac.spend <span class="o">=</span> pac <span class="o">%.%</span> group_by<span class="p">(</span>state<span class="p">)</span> <span class="o">%.%</span> summarise<span class="p">(</span>or <span class="o">=</span> <span class="kp">sum</span><span class="p">(</span>IEs.oppose.reps<span class="p">),</span> 
-    od <span class="o">=</span> <span class="kp">sum</span><span class="p">(</span>IEs.oppose.dems<span class="p">),</span> sr <span class="o">=</span> <span class="kp">sum</span><span class="p">(</span>IEs.support.reps<span class="p">),</span> sd <span class="o">=</span> <span class="kp">sum</span><span class="p">(</span>IEs.support.dems<span class="p">))</span> <span class="o">%.%</span> 
-    arrange<span class="p">(</span>state<span class="p">)</span>
+superpac.spend = pac %.% group_by(state) %.% summarise(or = sum(IEs.oppose.reps), 
+    od = sum(IEs.oppose.dems), sr = sum(IEs.support.reps), sd = sum(IEs.support.dems)) %.% 
+    arrange(state)
 
-states_map <span class="o">&lt;-</span> map_data<span class="p">(</span><span class="s">&quot;state&quot;</span><span class="p">)</span>
+states_map &lt;- map_data(&quot;state&quot;)
 
-superpac.spend<span class="o">$</span>statelc <span class="o">&lt;-</span> <span class="kp">tolower</span><span class="p">(</span>state.name<span class="p">[</span><span class="kp">match</span><span class="p">(</span>superpac.spend<span class="o">$</span>state<span class="p">,</span> state.abb<span class="p">)])</span>
+superpac.spend$statelc &lt;- tolower(state.name[match(superpac.spend$state, state.abb)])
 
-superpac.spend<span class="o">$</span>statelc<span class="p">[</span><span class="m">9</span><span class="p">]</span> <span class="o">&lt;-</span> <span class="s">&quot;district of columbia&quot;</span>
+superpac.spend$statelc[9] &lt;- &quot;district of columbia&quot;
 
-superpac.spend<span class="o">$</span>support <span class="o">&lt;-</span> <span class="p">(</span>superpac.spend<span class="o">$</span>sr <span class="o">-</span> superpac.spend<span class="o">$</span>sd<span class="p">)</span><span class="o">/</span><span class="p">(</span>superpac.spend<span class="o">$</span>sd <span class="o">+</span> 
-    superpac.spend<span class="o">$</span>sr<span class="p">)</span>
-superpac.spend<span class="o">$</span>oppose <span class="o">&lt;-</span> <span class="p">(</span>superpac.spend<span class="o">$</span>or <span class="o">-</span> superpac.spend<span class="o">$</span>od<span class="p">)</span><span class="o">/</span><span class="p">(</span>superpac.spend<span class="o">$</span>od <span class="o">+</span> 
-    superpac.spend<span class="o">$</span>or<span class="p">)</span></code></pre></div>
+superpac.spend$support &lt;- (superpac.spend$sr - superpac.spend$sd)/(superpac.spend$sd + 
+    superpac.spend$sr)
+superpac.spend$oppose &lt;- (superpac.spend$or - superpac.spend$od)/(superpac.spend$od + 
+    superpac.spend$or)</code></pre></div>
 
 <p>At this point, superpac.spend is a nice little table</p>
 
-<div class="highlight"><pre><code class="language-r" data-lang="r"><span class="kp">suppressMessages</span><span class="p">(</span><span class="kp">head</span><span class="p">(</span>tbl_dt<span class="p">(</span>superpac.spend<span class="p">)))</span></code></pre></div>
+<div class="highlight"><pre><code class="language-r" data-lang="r">suppressMessages(head(tbl_dt(superpac.spend)))</code></pre></div>
 
 <div class="highlight"><pre><code class="language-text" data-lang="text">##   state      or      od      sr      sd    statelc support  oppose
 ## 1             0       0       0       0       &lt;NA&gt;     NaN     NaN
@@ -163,26 +163,26 @@ superpac.spend<span class="o">$</span>oppose <span class="o">&lt;-</span> <span 
 
 <p>We went to all the trouble of getting the state names (statelc). Let’s use it to plot:</p>
 
-<div class="highlight"><pre><code class="language-r" data-lang="r">clean_theme <span class="o">&lt;-</span> theme<span class="p">(</span>axis.title <span class="o">=</span> element_blank<span class="p">(),</span> axis.text <span class="o">=</span> element_blank<span class="p">(),</span> 
-    panel.background <span class="o">=</span> element_blank<span class="p">(),</span> panel.grid <span class="o">=</span> element_blank<span class="p">(),</span> axis.ticks.length <span class="o">=</span> unit<span class="p">(</span><span class="m">0</span><span class="p">,</span> 
-        <span class="s">&quot;cm&quot;</span><span class="p">),</span> complete <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>
+<div class="highlight"><pre><code class="language-r" data-lang="r">clean_theme &lt;- theme(axis.title = element_blank(), axis.text = element_blank(), 
+    panel.background = element_blank(), panel.grid = element_blank(), axis.ticks.length = unit(0, 
+        &quot;cm&quot;), complete = TRUE)
 
-ggplot<span class="p">(</span>superpac.spend<span class="p">,</span> aes<span class="p">(</span>map_id <span class="o">=</span> statelc<span class="p">,</span> fill <span class="o">=</span> support<span class="p">))</span> <span class="o">+</span> geom_map<span class="p">(</span>map <span class="o">=</span> states_map<span class="p">)</span> <span class="o">+</span> 
-    expand_limits<span class="p">(</span>x <span class="o">=</span> states_map<span class="o">$</span>long<span class="p">,</span> y <span class="o">=</span> states_map<span class="o">$</span>lat<span class="p">)</span> <span class="o">+</span> coord_map<span class="p">(</span><span class="s">&quot;polyconic&quot;</span><span class="p">)</span> <span class="o">+</span> 
-    scale_fill_gradient2<span class="p">(</span>high <span class="o">=</span> muted<span class="p">(</span><span class="s">&quot;red&quot;</span><span class="p">),</span> low <span class="o">=</span> muted<span class="p">(</span><span class="s">&quot;blue&quot;</span><span class="p">),</span> mid <span class="o">=</span> <span class="s">&quot;white&quot;</span><span class="p">,</span> 
-        labels <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="s">&quot;Democratic&quot;</span><span class="p">,</span> <span class="s">&quot;Mostly Democratic&quot;</span><span class="p">,</span> <span class="s">&quot;Even&quot;</span><span class="p">,</span> <span class="s">&quot;Mostly Republican&quot;</span><span class="p">,</span> 
-            <span class="s">&quot;Republican&quot;</span><span class="p">))</span> <span class="o">+</span> labs<span class="p">(</span>fill <span class="o">=</span> <span class="s">&quot;Supporting\nOrientation&quot;</span><span class="p">)</span> <span class="o">+</span> ggtitle<span class="p">(</span><span class="s">&quot;Statewise Spending Orientation\n2011-2012 Election Cycle\n[Supporting]&quot;</span><span class="p">)</span> <span class="o">+</span> 
+ggplot(superpac.spend, aes(map_id = statelc, fill = support)) + geom_map(map = states_map) + 
+    expand_limits(x = states_map$long, y = states_map$lat) + coord_map(&quot;polyconic&quot;) + 
+    scale_fill_gradient2(high = muted(&quot;red&quot;), low = muted(&quot;blue&quot;), mid = &quot;white&quot;, 
+        labels = c(&quot;Democratic&quot;, &quot;Mostly Democratic&quot;, &quot;Even&quot;, &quot;Mostly Republican&quot;, 
+            &quot;Republican&quot;)) + labs(fill = &quot;Supporting\nOrientation&quot;) + ggtitle(&quot;Statewise Spending Orientation\n2011-2012 Election Cycle\n[Supporting]&quot;) + 
     clean_theme</code></pre></div>
 
 <p><img src="http://schnee.github.com/figs/2014-02-16-orientation/unnamed-chunk-3.png" alt="center" /></p>
 
 <p>and</p>
 
-<div class="highlight"><pre><code class="language-r" data-lang="r">ggplot<span class="p">(</span>superpac.spend<span class="p">,</span> aes<span class="p">(</span>map_id <span class="o">=</span> statelc<span class="p">,</span> fill <span class="o">=</span> oppose<span class="p">))</span> <span class="o">+</span> geom_map<span class="p">(</span>map <span class="o">=</span> states_map<span class="p">)</span> <span class="o">+</span> 
-    expand_limits<span class="p">(</span>x <span class="o">=</span> states_map<span class="o">$</span>long<span class="p">,</span> y <span class="o">=</span> states_map<span class="o">$</span>lat<span class="p">)</span> <span class="o">+</span> coord_map<span class="p">(</span><span class="s">&quot;polyconic&quot;</span><span class="p">)</span> <span class="o">+</span> 
-    scale_fill_gradient2<span class="p">(</span>high <span class="o">=</span> muted<span class="p">(</span><span class="s">&quot;red&quot;</span><span class="p">),</span> low <span class="o">=</span> muted<span class="p">(</span><span class="s">&quot;blue&quot;</span><span class="p">),</span> mid <span class="o">=</span> <span class="s">&quot;white&quot;</span><span class="p">,</span> 
-        labels <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="s">&quot;Democratic&quot;</span><span class="p">,</span> <span class="s">&quot;Mostly Democratic&quot;</span><span class="p">,</span> <span class="s">&quot;Even&quot;</span><span class="p">,</span> <span class="s">&quot;Mostly Republican&quot;</span><span class="p">,</span> 
-            <span class="s">&quot;Republican&quot;</span><span class="p">))</span> <span class="o">+</span> labs<span class="p">(</span>fill <span class="o">=</span> <span class="s">&quot;Opposing\nOrientation&quot;</span><span class="p">)</span> <span class="o">+</span> ggtitle<span class="p">(</span><span class="s">&quot;Statewise Spending Orientation\n2011-2012 Election Cycle\n[Opposing]&quot;</span><span class="p">)</span> <span class="o">+</span> 
+<div class="highlight"><pre><code class="language-r" data-lang="r">ggplot(superpac.spend, aes(map_id = statelc, fill = oppose)) + geom_map(map = states_map) + 
+    expand_limits(x = states_map$long, y = states_map$lat) + coord_map(&quot;polyconic&quot;) + 
+    scale_fill_gradient2(high = muted(&quot;red&quot;), low = muted(&quot;blue&quot;), mid = &quot;white&quot;, 
+        labels = c(&quot;Democratic&quot;, &quot;Mostly Democratic&quot;, &quot;Even&quot;, &quot;Mostly Republican&quot;, 
+            &quot;Republican&quot;)) + labs(fill = &quot;Opposing\nOrientation&quot;) + ggtitle(&quot;Statewise Spending Orientation\n2011-2012 Election Cycle\n[Opposing]&quot;) + 
     clean_theme</code></pre></div>
 
 <p><img src="http://schnee.github.com/figs/2014-02-16-orientation/unnamed-chunk-4.png" alt="center" /></p>
