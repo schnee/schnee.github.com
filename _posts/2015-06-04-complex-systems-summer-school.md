@@ -5,7 +5,7 @@ date: 2015-06-04T09:39:00-05:00
 tags: [CSSS]
 ---
 
-I work for a great company - hard, interesting problems; good people; good industry; good benefits. [HomeAway](http://www.homeaway.com/info/about-us) offers as a foundational benefit the concept of continual personal development - we have a business to run, certainly, but HomeAway has a "help them grow of watch them go" attitude which helps with both retention AND running the business better.
+I work for a great company - hard, interesting problems; good people; good industry; good benefits. [HomeAway](http://www.homeaway.com/info/about-us) offers as a foundational benefit the concept of continual personal development - we have a business to run, certainly, but HomeAway has a "help them grow or watch them go" attitude which helps with both retention AND running the business better.
 
 I'm about to head off to the [Complex Systems Summer School](http://www.santafe.edu/education/schools/complex-systems-summer-schools/) at the [Santa Fe Institute](http://www.santafe.edu). The CSSS offers "an intensive four week introduction to complex behavior in mathematical, physical, living, and social systems for graduate students and postdoctoral fellows in the sciences and social sciences." I don't exactly fit any of those categories, but I do have one degree in Electrical Engineering, one in Mathematics and (probably most importantly) several years of experience in the "high tech" industry.
 
