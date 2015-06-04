@@ -5,10 +5,46 @@
         <description>schnee - Brent Schneeman</description>
         <link>http://schnee.github.io</link>
         <link>http://schnee.github.io</link>
-        <lastBuildDate>2015-06-02T12:41:51-05:00</lastBuildDate>
-        <pubDate>2015-06-02T12:41:51-05:00</pubDate>
+        <lastBuildDate>2015-06-04T10:15:51-05:00</lastBuildDate>
+        <pubDate>2015-06-04T10:15:51-05:00</pubDate>
         <ttl>1800</ttl>
 
+
+        <item>
+                <title>Complex Systems Summer School</title>
+                <description>&lt;p&gt;I work for a great company - hard, interesting problems; good people; good industry; good benefits. &lt;a href=&quot;http://www.homeaway.com/info/about-us&quot;&gt;HomeAway&lt;/a&gt; offers as a foundational benefit the concept of continual personal development - we have a business to run, certainly, but HomeAway has a “help them grow of watch them go” attitude which helps with both retention AND running the business better.&lt;/p&gt;
+
+&lt;p&gt;I’m about to head off to the &lt;a href=&quot;http://www.santafe.edu/education/schools/complex-systems-summer-schools/&quot;&gt;Complex Systems Summer School&lt;/a&gt; at the &lt;a href=&quot;http://www.santafe.edu&quot;&gt;Santa Fe Institute&lt;/a&gt;. The CSSS offers “an intensive four week introduction to complex behavior in mathematical, physcial, living, and social systems for graduate students and postdoctoral fellows in the sciences and social sciences.” I don’t exactly fit any of those categories, but I do have one degree in Electrical Engineering, one in Mathematics and (probably most importantly) several years of experience in the “high tech” industry.&lt;/p&gt;
+
+&lt;p&gt;The syllabus contains:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Nonlinear Dynamics (I thru IV !)&lt;/li&gt;
+  &lt;li&gt;Physics&lt;/li&gt;
+  &lt;li&gt;Phase Transitions&lt;/li&gt;
+  &lt;li&gt;Statistics (I and II)&lt;/li&gt;
+  &lt;li&gt;Computation NP vs. P (I thru V)&lt;/li&gt;
+  &lt;li&gt;Networks I thru III and Complex Networks&lt;/li&gt;
+  &lt;li&gt;Limit Shapes&lt;/li&gt;
+  &lt;li&gt;Complexity I thru III&lt;/li&gt;
+  &lt;li&gt;Maximum Entropy: A Framework for Theory Construction with Application to Community Ecology&lt;/li&gt;
+  &lt;li&gt;Boltzmann Dynamics and the Integration of Macroecology and Evolutionary History&lt;/li&gt;
+  &lt;li&gt;The Rate of Aging — Theoretical and Experimental Ruminations&lt;/li&gt;
+  &lt;li&gt;Economics from a physics point of view&lt;/li&gt;
+  &lt;li&gt;Agent Based Modeling Flocking&lt;/li&gt;
+  &lt;li&gt;and Social Minds, Emergent Epidemiology, Computational Biology, Evolution I and II, Evolutionary Game Theory and, and, and…&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Whew!&lt;/p&gt;
+
+&lt;p&gt;I don’t know what some of those words even mean, much less the concepts behind them. But that’s OK because I’m excited to learn. I can see some practical applications to my day job (“Data Scientist”) but the most exciting part is the pure “brain stretching” that the CSSS will apply.&lt;/p&gt;
+
+&lt;p&gt;Actually, in retrospect, meeting all these graduate students and postdoctoral fellows and industry folks like me excites me the most.&lt;/p&gt;
+</description>
+                <link>http://schnee.github.io/2015/06/04/complex-systems-summer-school</link>
+                <guid>http://schnee.github.io/2015/06/04/complex-systems-summer-school</guid>
+                <pubDate>2015-06-04T09:39:00-05:00</pubDate>
+        </item>
 
         <item>
                 <title>Binning Continuous Data</title>

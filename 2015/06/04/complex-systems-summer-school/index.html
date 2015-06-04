@@ -3,7 +3,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Binning Continuous Data</title>
+    <title>Complex Systems Summer School</title>
     
     <meta name="author" content="Brent Schneeman">
 
@@ -110,70 +110,59 @@
       <div class="content">
         
 <div class="page-header">
-  <h1>Binning Continuous Data </h1>
+  <h1>Complex Systems Summer School </h1>
 </div>
 
 <div class="row-fluid post-full">
   <div class="span12">
     <div class="date">
-      <span>31 March 2014</span>
+      <span>04 June 2015</span>
     </div>
     <div class="content">
-      <p>Recently, I had a continuous variable that I wanted to plot and use color to show the gradient. The variable’s values were too fine for color to reveal closely spaced data. So I wanted to quantize the variable into defined bands.</p>
+      <p>I work for a great company - hard, interesting problems; good people; good industry; good benefits. <a href="http://www.homeaway.com/info/about-us">HomeAway</a> offers as a foundational benefit the concept of continual personal development - we have a business to run, certainly, but HomeAway has a “help them grow of watch them go” attitude which helps with both retention AND running the business better.</p>
 
-<p>The data’s values were outside the (absolute) maximum of the band; I wanted to bucket anything that exceeded the band into the maximum bands. In the future, I’ll change the labels of the interval factor to indicate this.</p>
+<p>I’m about to head off to the <a href="http://www.santafe.edu/education/schools/complex-systems-summer-schools/">Complex Systems Summer School</a> at the <a href="http://www.santafe.edu">Santa Fe Institute</a>. The CSSS offers “an intensive four week introduction to complex behavior in mathematical, physcial, living, and social systems for graduate students and postdoctoral fellows in the sciences and social sciences.” I don’t exactly fit any of those categories, but I do have one degree in Electrical Engineering, one in Mathematics and (probably most importantly) several years of experience in the “high tech” industry.</p>
 
-<div class="highlight"><pre><code class="language-r" data-lang="r">require(ggplot2)
-require(RColorBrewer)
-set.seed(1492)  #discovery!
-sample = data.frame(x = c(1:20), y = 1, obs = runif(20, -150, 150))
-the.breaks = seq(-100, 100, by = 20)
+<p>The syllabus contains:</p>
 
-sample$interval = factor(findInterval(sample$obs, vec = the.breaks, all.inside = TRUE), 
-    labels = the.breaks, levels = c(1:length(the.breaks)))
+<ul>
+  <li>Nonlinear Dynamics (I thru IV !)</li>
+  <li>Physics</li>
+  <li>Phase Transitions</li>
+  <li>Statistics (I and II)</li>
+  <li>Computation NP vs. P (I thru V)</li>
+  <li>Networks I thru III and Complex Networks</li>
+  <li>Limit Shapes</li>
+  <li>Complexity I thru III</li>
+  <li>Maximum Entropy: A Framework for Theory Construction with Application to Community Ecology</li>
+  <li>Boltzmann Dynamics and the Integration of Macroecology and Evolutionary History</li>
+  <li>The Rate of Aging — Theoretical and Experimental Ruminations</li>
+  <li>Economics from a physics point of view</li>
+  <li>Agent Based Modeling Flocking</li>
+  <li>and Social Minds, Emergent Epidemiology, Computational Biology, Evolution I and II, Evolutionary Game Theory and, and, and…</li>
+</ul>
 
-pal = rev(brewer.pal(11, &quot;RdBu&quot;))
+<p>Whew!</p>
 
-p = ggplot(sample, aes(x, y, colour = interval))
-p = p + geom_point(size = 10)
-p = p + scale_colour_manual(values = pal, limits = the.breaks, labels = the.breaks)
-p = p + guides(colour = guide_legend(override.aes = list(size = 3, shape = 19)))
-p</code></pre></div>
+<p>I don’t know what some of those words even mean, much less the concepts behind them. But that’s OK because I’m excited to learn. I can see some practical applications to my day job (“Data Scientist”) but the most exciting part is the pure “brain stretching” that the CSSS will apply.</p>
 
-<p><img src="http://schnee.github.com/figs/2014-03-31-binning/unnamed-chunk-1.png" alt="center" /></p>
-
+<p>Actually, in retrospect, meeting all these graduate students and postdoctoral fellows and industry folks like me excites me the most.</p>
 
     </div>
 
     
 
-  
-    <ul class="tag_box inline">
-      <li><i class="icon-tags"></i></li>
-      
-      
-
-
-  
-     
-    	<li><a href="/tags.html#R-ref">R <span>3</span></a></li>
-    
-  
-
-
-
-    </ul>
     
 
     <hr>
     <div class="pagination">
       <ul>
       
-        <li class="prev"><a href="/2014/02/16/orientation" title="SuperPAC Spending Orientation by State">&larr; Previous</a></li>
+        <li class="prev"><a href="/2014/03/31/binning" title="Binning Continuous Data">&larr; Previous</a></li>
       
         <li><a href="/archive.html">Archive</a></li>
       
-        <li class="next"><a href="/2015/06/04/complex-systems-summer-school" title="Complex Systems Summer School">Next &rarr;</a></li>
+        <li class="next disabled"><a>Next &rarr;</a>
       
       </ul>
     </div>
