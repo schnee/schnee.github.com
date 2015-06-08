@@ -5,10 +5,23 @@
         <description>schnee - Brent Schneeman</description>
         <link>http://schnee.github.io</link>
         <link>http://schnee.github.io</link>
-        <lastBuildDate>2015-06-04T11:22:47-05:00</lastBuildDate>
-        <pubDate>2015-06-04T11:22:47-05:00</pubDate>
+        <lastBuildDate>2015-06-07T22:29:20-06:00</lastBuildDate>
+        <pubDate>2015-06-07T22:29:20-06:00</pubDate>
         <ttl>1800</ttl>
 
+
+        <item>
+                <title>CSSS-reception</title>
+                <description>&lt;p&gt;&lt;img src=&quot;/figs/2015-06-07-csss-reception/sunset.jpg&quot; alt=&quot;awesome sunset&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Not to make anyone jealous or anything, but the above is the sunset on the lanaii from where I’ll be spending the next 30 days.&lt;/p&gt;
+
+&lt;p&gt;The reception hosted 60+ students from ALL over the world in many different disciplines: Economics, Physics, Mathematics, Engineering, Biology, &amp;amp;c. I had a great time talking to everyone. Tomorrow, at 9am, class starts.&lt;/p&gt;
+</description>
+                <link>http://schnee.github.io/2015/06/07/csss-reception</link>
+                <guid>http://schnee.github.io/2015/06/07/csss-reception</guid>
+                <pubDate>2015-06-07T22:22:07-06:00</pubDate>
+        </item>
 
         <item>
                 <title>Complex Systems Summer School</title>
@@ -45,7 +58,7 @@
 </description>
                 <link>http://schnee.github.io/2015/06/04/complex-systems-summer-school</link>
                 <guid>http://schnee.github.io/2015/06/04/complex-systems-summer-school</guid>
-                <pubDate>2015-06-04T09:39:00-05:00</pubDate>
+                <pubDate>2015-06-04T08:39:00-06:00</pubDate>
         </item>
 
         <item>
@@ -76,7 +89,7 @@ p&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 </description>
                 <link>http://schnee.github.io/2014/03/31/binning</link>
                 <guid>http://schnee.github.io/2014/03/31/binning</guid>
-                <pubDate>2014-03-31T00:00:00-05:00</pubDate>
+                <pubDate>2014-03-31T00:00:00-06:00</pubDate>
         </item>
 
         <item>
@@ -155,7 +168,7 @@ ggplot(superpac.spend, aes(map_id = statelc, fill = support)) + geom_map(map = s
 </description>
                 <link>http://schnee.github.io/2014/02/16/orientation</link>
                 <guid>http://schnee.github.io/2014/02/16/orientation</guid>
-                <pubDate>2014-02-16T00:00:00-06:00</pubDate>
+                <pubDate>2014-02-16T00:00:00-07:00</pubDate>
         </item>
 
         <item>
@@ -262,7 +275,7 @@ ggplot(pdata.noDC, aes(map_id = statelc, fill = Sum_q)) + geom_map(map = states_
 </description>
                 <link>http://schnee.github.io/2014/02/11/superpac-receipts</link>
                 <guid>http://schnee.github.io/2014/02/11/superpac-receipts</guid>
-                <pubDate>2014-02-11T00:00:00-06:00</pubDate>
+                <pubDate>2014-02-11T00:00:00-07:00</pubDate>
         </item>
 
 

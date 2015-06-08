@@ -4,7 +4,7 @@
  <title>schnee</title>
  <link href="http://schnee.github.io/" rel="self"/>
  <link href="http://schnee.github.io"/>
- <updated>2015-06-04T11:22:47-05:00</updated>
+ <updated>2015-06-07T22:29:20-06:00</updated>
  <id>http://schnee.github.io</id>
  <author>
    <name>Brent Schneeman</name>
@@ -13,9 +13,22 @@
 
  
  <entry>
+   <title>CSSS-reception</title>
+   <link href="http://schnee.github.io/2015/06/07/csss-reception"/>
+   <updated>2015-06-07T22:22:07-06:00</updated>
+   <id>http://schnee.github.io/2015/06/07/csss-reception</id>
+   <content type="html">&lt;p&gt;&lt;img src=&quot;/figs/2015-06-07-csss-reception/sunset.jpg&quot; alt=&quot;awesome sunset&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Not to make anyone jealous or anything, but the above is the sunset on the lanaii from where I’ll be spending the next 30 days.&lt;/p&gt;
+
+&lt;p&gt;The reception hosted 60+ students from ALL over the world in many different disciplines: Economics, Physics, Mathematics, Engineering, Biology, &amp;amp;c. I had a great time talking to everyone. Tomorrow, at 9am, class starts.&lt;/p&gt;
+</content>
+ </entry>
+ 
+ <entry>
    <title>Complex Systems Summer School</title>
    <link href="http://schnee.github.io/2015/06/04/complex-systems-summer-school"/>
-   <updated>2015-06-04T09:39:00-05:00</updated>
+   <updated>2015-06-04T08:39:00-06:00</updated>
    <id>http://schnee.github.io/2015/06/04/complex-systems-summer-school</id>
    <content type="html">&lt;p&gt;I work for a great company - hard, interesting problems; good people; good industry; good benefits. &lt;a href=&quot;http://www.homeaway.com/info/about-us&quot;&gt;HomeAway&lt;/a&gt; offers as a foundational benefit the concept of continual personal development - we have a business to run, certainly, but HomeAway has a “help them grow or watch them go” attitude which helps with both retention AND running the business better.&lt;/p&gt;
 
@@ -53,7 +66,7 @@
  <entry>
    <title>Binning Continuous Data</title>
    <link href="http://schnee.github.io/2014/03/31/binning"/>
-   <updated>2014-03-31T00:00:00-05:00</updated>
+   <updated>2014-03-31T00:00:00-06:00</updated>
    <id>http://schnee.github.io/2014/03/31/binning</id>
    <content type="html">&lt;p&gt;Recently, I had a continuous variable that I wanted to plot and use color to show the gradient. The variable’s values were too fine for color to reveal closely spaced data. So I wanted to quantize the variable into defined bands.&lt;/p&gt;
 
@@ -84,7 +97,7 @@ p&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
  <entry>
    <title>SuperPAC Spending Orientation by State</title>
    <link href="http://schnee.github.io/2014/02/16/orientation"/>
-   <updated>2014-02-16T00:00:00-06:00</updated>
+   <updated>2014-02-16T00:00:00-07:00</updated>
    <id>http://schnee.github.io/2014/02/16/orientation</id>
    <content type="html">&lt;p&gt;A &lt;a href=&quot;/2014/02/11/superpac-receipts/&quot;&gt;prior entry&lt;/a&gt; looked at Super PAC receipts for the 2011-2012 election cycle and showed a bit of R code. Here, we use the &lt;a href=&quot;http://reporting.sunlightfoundation.com/outside-spending-2012/file-downloads/&quot;&gt;same data&lt;/a&gt; and break it down by supporting and opposing spending by state.&lt;/p&gt;
 
@@ -163,7 +176,7 @@ ggplot(superpac.spend, aes(map_id = statelc, fill = support)) + geom_map(map = s
  <entry>
    <title>SuperPAC Receipts by State</title>
    <link href="http://schnee.github.io/2014/02/11/superpac-receipts"/>
-   <updated>2014-02-11T00:00:00-06:00</updated>
+   <updated>2014-02-11T00:00:00-07:00</updated>
    <id>http://schnee.github.io/2014/02/11/superpac-receipts</id>
    <content type="html">&lt;p&gt;A colleague exposed me to the &lt;a href=&quot;http://cran.r-project.org&quot;&gt;R&lt;/a&gt; enviroment. It smoted me and I looked for non-work datasets. I found &lt;a href=&quot;http://sunlightfoundation.com/&quot;&gt;The Sunlight Foundation&lt;/a&gt; and started digging through their data, and I found their reports on &lt;a href=&quot;http://reporting.sunlightfoundation.com/outside-spending-2012/super-pacs/&quot;&gt;Super PAC spending&lt;/a&gt;. I downloaded the &lt;a href=&quot;http://reporting.sunlightfoundation.com/outside-spending-2012/file-downloads/&quot;&gt;Super PAC Summary&lt;/a&gt; data and broke out R.&lt;/p&gt;
 
