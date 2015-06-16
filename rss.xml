@@ -5,10 +5,33 @@
         <description>schnee - Brent Schneeman</description>
         <link>http://schnee.github.io</link>
         <link>http://schnee.github.io</link>
-        <lastBuildDate>2015-06-11T21:52:15-06:00</lastBuildDate>
-        <pubDate>2015-06-11T21:52:15-06:00</pubDate>
+        <lastBuildDate>2015-06-16T16:19:50-06:00</lastBuildDate>
+        <pubDate>2015-06-16T16:19:50-06:00</pubDate>
         <ttl>1800</ttl>
 
+
+        <item>
+                <title>CSSS Week Two</title>
+                <description>&lt;p&gt;&lt;img src=&quot;/figs/double-helix.png&quot; alt=&quot;double-helix&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The tempo of the weeks looks a bit like: four days of lecture / project work at St. John’s College in Santa Fe and one day (Friday) as the Santa Fe Institute. The grounds of both are beautiful, which is a reflection of Santa Fe in general.&lt;/p&gt;
+
+&lt;p&gt;For fun, I suggested a field trip to the Rio Grande Gorge Bridge, outside of Taos. Primarily because it is a beautiful structure over a very impressive gorge, but also because it just sort of “appears” - the landscape during the approach gives scant clue to the magnitude of the spectacle. I drove my group (“Team Brent”) and kept quite - I could hear the approach-disappointment turn into awe upon arrival. Mission Accomplished. We took the “High Road to Taos” out of Santa Fe and saw a lot of historic and beautiful churches and other scenery. Spent a bit of time at the Taos Pueblo and spent a lot of time talking to the other participants. One woman works at the Catholic University in Spain and more-or-less reports directly to the Vatican. I’m going to get drinks with her (and others) and chat about Pope Francis.&lt;/p&gt;
+
+&lt;p&gt;We’ve exhausted Non-Linear Dynamics and Statistics. Bayesian? The instructor is not a fan. We didn’t spend too much time on concept like mean and median, no, we did a lot of kernel estimation and really sophisticated curve fitting. That was cool, but everyone wanted a few more real-world examples.&lt;/p&gt;
+
+&lt;p&gt;I learned something about the Ising model. It addresses phase transitions in magnets, and how the dipole “spins” (“up”, “down”) all need to be aligned to “get magnetism”. The cool think is that the model only considers nearest neighbor interactions of the dipoles, yet somehow models an entire structure (the relationship between farthest neighbors comes out of the model). There is a boat-load of math and theory around this. I’m sort of wondering what will happen if I model a marketplace with Ising techniques: “rented” and “not rented” instead of “up” and “down”. Then, will a marketplace experience a phase transition over time? If so, why? And how can we use that to understand our marketplace dynamics (e.g. what’s different in Breckenridge during winter and summer, or what’s different between Breckenridge and Los Angeles?). Might not be at all useful (in fact, we were warned that while this is great for Physics, and works for things like flocking birds, it might not be so cool in other fields). If it doesn’t work out, at a minimum, I’ll have at least learned something new.&lt;/p&gt;
+
+&lt;p&gt;One thing of likely probable use is solving the bipartite graph problem via reduction to “max flow” algorithms. What is a bipartite graph? Well, here’s an example: assume you have a set of people in one partition, and a set of people in another partition, and there exists a series of (possibly sparse) edges between people in each partition. Think “matchmaking” and “match.com” in a simple heterosexual case - men like certain women; women like certain men. How can we make a match between the maximum number? This is very much like travelers and vacation rentals. During a specific “stay vector” (starting date and duration - position (in time) and magnitude), lots of unbooked properties likely match lots of (potentially filtered) traveler search requests. We can possibly use max flow to return search results that, if selected, would maximize the utilization of the properties. We can’t guarantee an optimal selection on a per-traveler basis, but we could at least provide a bias.&lt;/p&gt;
+
+&lt;p&gt;And now to the header image. One of the instructors (Sander Bias, who also first introduced the Ising Model) talked a bit about the coupling between “wonder is the seed of knowledge” and “knowledge is the seed of technology”. We wonder, observe, gather info, and make, but in two related loops. The top loop looks like “science” and the bottom like “engineering”, and neither is dominant - we can’t wonder about things we can’t see: for example, the telescope opened all sorts of wondering (and in a more current topic, the parallel computing technology has opened many new fields in pure mathematics). Of course the science helix feeds the technology one, too and sometimes it is hard to see the coupling between. Cool stuff to think about. The Complex Systems Summer School is very indexed on Science. One way for the Engineering loop to be better represented would be for more representation from the SFI Business Network (people like me). I noticed that during our selection of projects one of the common themes was “hey, I have &lt;em&gt;this&lt;/em&gt; dataset, let’s analyze it”. Should Industry come to the CSSS not necessarily as student-participants but as dataset-stewards (where the datasets are interesting for science but not for competitive analysis), then the double helix could be better served.&lt;/p&gt;
+
+&lt;p&gt;This is not an attempt by me to get HomeAway to send me to Santa Fe every June to act as a data-steward. Honestly.&lt;/p&gt;
+</description>
+                <link>http://schnee.github.io/2015/06/16/csss-week-two</link>
+                <guid>http://schnee.github.io/2015/06/16/csss-week-two</guid>
+                <pubDate>2015-06-16T14:38:29-06:00</pubDate>
+        </item>
 
         <item>
                 <title>CSSS Week One</title>

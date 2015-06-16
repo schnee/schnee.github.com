@@ -1,0 +1,190 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>CSSS Week Two</title>
+    
+    <meta name="author" content="Brent Schneeman">
+
+    <!-- Enable responsive viewport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+    <link href="/assets/themes/twitter/bootstrap/css/bootstrap.2.2.2.min.css" rel="stylesheet">
+    <link href="/assets/themes/twitter/css/style.css?body=1" rel="stylesheet" type="text/css" media="all">
+
+    <!-- Le fav and touch icons -->
+  <!-- Update these with your own images
+    <link rel="shortcut icon" href="images/favicon.ico">
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+  -->
+
+    <!-- atom & rss feed -->
+    <link href="/atom.xml" type="application/atom+xml" rel="alternate" title="Sitewide ATOM Feed">
+    <link href="/rss.xml" type="application/rss+xml" rel="alternate" title="Sitewide RSS Feed">
+
+  </head>
+
+  <body>
+    <div class="navbar">
+      <div class="navbar-inner">
+        <div class="container-narrow">
+          <a class="brand" href="/">schnee</a>
+          <ul class="nav">
+            
+            
+            
+
+
+  
+    
+      
+      	
+      	<li><a href="/archive.html">Archive</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/categories.html">Categories</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/pages.html">Pages</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/tags.html">Tags</a></li>
+      	
+      
+    
+  
+
+
+
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="container-narrow">
+
+      <div class="content">
+        
+<div class="page-header">
+  <h1>CSSS Week Two </h1>
+</div>
+
+<div class="row-fluid post-full">
+  <div class="span12">
+    <div class="date">
+      <span>16 June 2015</span>
+    </div>
+    <div class="content">
+      <p><img src="/figs/double-helix.png" alt="double-helix" /></p>
+
+<p>The tempo of the weeks looks a bit like: four days of lecture / project work at St. John’s College in Santa Fe and one day (Friday) as the Santa Fe Institute. The grounds of both are beautiful, which is a reflection of Santa Fe in general.</p>
+
+<p>For fun, I suggested a field trip to the Rio Grande Gorge Bridge, outside of Taos. Primarily because it is a beautiful structure over a very impressive gorge, but also because it just sort of “appears” - the landscape during the approach gives scant clue to the magnitude of the spectacle. I drove my group (“Team Brent”) and kept quite - I could hear the approach-disappointment turn into awe upon arrival. Mission Accomplished. We took the “High Road to Taos” out of Santa Fe and saw a lot of historic and beautiful churches and other scenery. Spent a bit of time at the Taos Pueblo and spent a lot of time talking to the other participants. One woman works at the Catholic University in Spain and more-or-less reports directly to the Vatican. I’m going to get drinks with her (and others) and chat about Pope Francis.</p>
+
+<p>We’ve exhausted Non-Linear Dynamics and Statistics. Bayesian? The instructor is not a fan. We didn’t spend too much time on concept like mean and median, no, we did a lot of kernel estimation and really sophisticated curve fitting. That was cool, but everyone wanted a few more real-world examples.</p>
+
+<p>I learned something about the Ising model. It addresses phase transitions in magnets, and how the dipole “spins” (“up”, “down”) all need to be aligned to “get magnetism”. The cool think is that the model only considers nearest neighbor interactions of the dipoles, yet somehow models an entire structure (the relationship between farthest neighbors comes out of the model). There is a boat-load of math and theory around this. I’m sort of wondering what will happen if I model a marketplace with Ising techniques: “rented” and “not rented” instead of “up” and “down”. Then, will a marketplace experience a phase transition over time? If so, why? And how can we use that to understand our marketplace dynamics (e.g. what’s different in Breckenridge during winter and summer, or what’s different between Breckenridge and Los Angeles?). Might not be at all useful (in fact, we were warned that while this is great for Physics, and works for things like flocking birds, it might not be so cool in other fields). If it doesn’t work out, at a minimum, I’ll have at least learned something new.</p>
+
+<p>One thing of likely probable use is solving the bipartite graph problem via reduction to “max flow” algorithms. What is a bipartite graph? Well, here’s an example: assume you have a set of people in one partition, and a set of people in another partition, and there exists a series of (possibly sparse) edges between people in each partition. Think “matchmaking” and “match.com” in a simple heterosexual case - men like certain women; women like certain men. How can we make a match between the maximum number? This is very much like travelers and vacation rentals. During a specific “stay vector” (starting date and duration - position (in time) and magnitude), lots of unbooked properties likely match lots of (potentially filtered) traveler search requests. We can possibly use max flow to return search results that, if selected, would maximize the utilization of the properties. We can’t guarantee an optimal selection on a per-traveler basis, but we could at least provide a bias.</p>
+
+<p>And now to the header image. One of the instructors (Sander Bias, who also first introduced the Ising Model) talked a bit about the coupling between “wonder is the seed of knowledge” and “knowledge is the seed of technology”. We wonder, observe, gather info, and make, but in two related loops. The top loop looks like “science” and the bottom like “engineering”, and neither is dominant - we can’t wonder about things we can’t see: for example, the telescope opened all sorts of wondering (and in a more current topic, the parallel computing technology has opened many new fields in pure mathematics). Of course the science helix feeds the technology one, too and sometimes it is hard to see the coupling between. Cool stuff to think about. The Complex Systems Summer School is very indexed on Science. One way for the Engineering loop to be better represented would be for more representation from the SFI Business Network (people like me). I noticed that during our selection of projects one of the common themes was “hey, I have <em>this</em> dataset, let’s analyze it”. Should Industry come to the CSSS not necessarily as student-participants but as dataset-stewards (where the datasets are interesting for science but not for competitive analysis), then the double helix could be better served.</p>
+
+<p>This is not an attempt by me to get HomeAway to send me to Santa Fe every June to act as a data-steward. Honestly.</p>
+
+    </div>
+
+    
+
+  
+    <ul class="tag_box inline">
+      <li><i class="icon-tags"></i></li>
+      
+      
+
+
+  
+     
+    	<li><a href="/tags.html#CSSS-ref">CSSS <span>4</span></a></li>
+    
+  
+
+
+
+    </ul>
+    
+
+    <hr>
+    <div class="pagination">
+      <ul>
+      
+        <li class="prev"><a href="/2015/06/11/csss-week-one" title="CSSS Week One">&larr; Previous</a></li>
+      
+        <li><a href="/archive.html">Archive</a></li>
+      
+        <li class="next disabled"><a>Next &rarr;</a>
+      
+      </ul>
+    </div>
+    <hr>
+    
+  </div>
+</div>
+
+
+      </div>
+      <hr>
+      <footer>
+        <p>&copy; 2015 <a href="http://twitter.com/schnee">Brent Schneeman</a> (twitter)<br><a href="https://github.com/schnee">schnee</a> (github.com)
+        </p>
+      </footer>
+
+    </div>
+
+    
+  </body>
+</html>
+
